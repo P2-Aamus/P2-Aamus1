@@ -1,0 +1,117 @@
+/* General page styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Calendar Container */
+.calendar-container {
+    width: 68%; /* Take up almost half of the page */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+/* Notice Board Container */
+.notice-board-container {
+    width: 25%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notice-board-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.notice-board {
+    display: flex;
+    flex-direction: column;
+}
+
+.notice-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.notice-item h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.notice-item p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Responsive design: stack components on smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .calendar-container, .notice-board-container {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
