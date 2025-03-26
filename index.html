@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="css mappe/styles.css">
     <link rel="stylesheet" href="css mappe/calendar.css">
     <script src="funktion mappe/script.js"></script>
+
 </head>
 <body>
 
     <section class="calendar-container">
+        <script src="funktion mappe/calendar.js"></script>
         <h2>Booking Kalender</h2>
         <div class="calendar-header">
-            <select id="location-select" onchange="changeLocation()">
+            <select id="location-select" onchange="RoomChange()">
                 <option value="lokale1">Lokale 1 - Trommer</option>
                 <option value="lokale2">Lokale 2 - Guitar</option>
                 <option value="lokale3">Lokale 3 - Klaver</option>
@@ -30,7 +32,7 @@
         <div class="calendar-grid" id="calendar-grid"></div>
     </section>
 
-    <script src="funktion mappe/calendar.js"></script>
+
    
 
         <!-- Notice Board Section -->

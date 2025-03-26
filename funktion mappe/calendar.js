@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentWeek = 12;
 
     let currentLocation = "lokale1"; // Standard lokation
-    const allBookings = {
+    let allBookings = {
         lokale1: [{ day: 1, time: 12, duration: 4, name: "Din tid", color: "blue" },
             { day: 3, time: 18, duration: 2, name: "Anders", color: "red" },
             { day: 4, time: 10, duration: 2, name: "Frank", color: "red" }],
-        lokale2: [],
+        lokale2: [{ day: 3, time: 8, duration: 3, name: "Din tid", color: "blue" }],
         lokale3: [],
         lokale4: [],
         lokale5: [],
@@ -17,13 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         lokale8: []
     };
 
-    function changeLocation() { //Ale her i morgen
-        let select = document.getElementById("location-select");
-        let newLocation = select?.getAttribute;
-       //bookings.length = 0; // Rydder bookingerne
-       console.log(newLocation);
-        renderCalendar();
-    }
 
 
     function prevWeek() {
@@ -41,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCalendar();
     }
 
-    function renderCalendar(chosenRoom) {
+    function renderCalendar() {
         calendarGrid.innerHTML = "";
 
         const days = ["Tid", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
@@ -101,5 +94,11 @@ cell.onclick = () => openModal(day, hour);
     updateWeek();
 });
 
+//Change room
+let roomSelect = document.getElementById("location-select");
 
+function RoomChange() {
+    console.log("heeeeej");
+    
 
+}
