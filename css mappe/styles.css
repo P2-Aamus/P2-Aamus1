@@ -36,33 +36,11 @@ body {
     flex-direction: column;
 }
 
-.calendar-header {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
     text-align: center;
-}
-
-.day {
-    padding: 20px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1.2em;
-}
-
-.day:hover {
-    background-color: #e0e0e0;
-    cursor: pointer;
 }
 
 /* Notice Board Container */
@@ -85,23 +63,7 @@ body {
     flex-direction: column;
 }
 
-.notice-item {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
 
-.notice-item h3 {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-}
-
-.notice-item p {
-    font-size: 1em;
-    color: #555;
-}
 
 /* Responsive design: stack components on smaller screens */
 @media (max-width: 768px) {
