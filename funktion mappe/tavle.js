@@ -59,3 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 });
 
+(function() {
+    $('#one').click(function() {
+      if ($('#one-content').hasClass('hide')) {
+        $('#one-content').removeClass('hide');
+        $('#one-content').addClass('show');
+      } else {
+        $('#one-content').addClass('hide');
+        $('#one-content').removeClass('show');
+      }
+    });
+  })();
+  
