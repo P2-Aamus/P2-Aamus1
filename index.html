@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar and Notice Board</title>
     <link rel="stylesheet" href="css mappe/styles.css">
+    <link rel="stylesheet" href="css mappe/calendar.css">
     <script src="funktion mappe/"></script>
 </head>
 <body>
 
-    <div class="container">
-        <section class="calendar-container">
-            <h2>Calendar</h2>
-            <div class="calendar">
+    <section class="calendar-container">
+        <h2>Booking Kalender</h2>
+        <div class="calendar-header">
+            <button onclick="prevWeek()">◀</button>
+            <span id="week-number">UGE 12</span>
+            <button onclick="nextWeek()">▶</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+    </section>
 
-            </div>
-        </section>
+    <script src="funktion mappe/calendar.js"></script>
+   
 
         <!-- Notice Board Section -->
         <section class="notice-board-container">
