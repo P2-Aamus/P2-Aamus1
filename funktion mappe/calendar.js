@@ -3,11 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const weekNumberElement = document.getElementById("week-number");
     let currentWeek = 12;
 
-    const bookings = [
-        { day: 1, time: 12, duration: 4, name: "Din tid", color: "blue" },
-        { day: 3, time: 18, duration: 2, name: "Anders", color: "red" },
-        { day: 4, time: 10, duration: 2, name: "Frank", color: "red" }
-    ];
+    let currentLocation = "lokale1"; // Standard lokation
+    const allBookings = {
+        lokale1: [{ day: 1, time: 12, duration: 4, name: "Din tid", color: "blue" },
+            { day: 3, time: 18, duration: 2, name: "Anders", color: "red" },
+            { day: 4, time: 10, duration: 2, name: "Frank", color: "red" }],
+        lokale2: [],
+        lokale3: [],
+        lokale4: [],
+        lokale5: [],
+        lokale6: [],
+        lokale7: [],
+        lokale8: []
+    };
+
+    function changeLocation() { //Ale her i morgen
+        let select = document.getElementById("location-select");
+        let newLocation = select?.getAttribute;
+       //bookings.length = 0; // Rydder bookingerne
+       console.log(newLocation);
+        renderCalendar();
+    }
+
 
     function prevWeek() {
         currentWeek--;
@@ -24,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCalendar();
     }
 
-    function renderCalendar() {
+    function renderCalendar(chosenRoom) {
         calendarGrid.innerHTML = "";
 
         const days = ["Tid", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
@@ -50,15 +67,28 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let day = 0; day < 7; day++) {
                 const cell = document.createElement("div");
                 cell.className = "calendar-cell";
+                
+// Tilføj weekend-klasse til lørdag og søndag
+if (day === 5 || day === 6) {
+    cell.classList.add("weekend");
+}
+
+cell.onclick = () => openModal(day, hour);
+
 
                 // Check om der er en booking på dette tidspunkt
-                const booking = bookings.find(b => b.day === day && b.time === hour);
+                const booking = allBookings.lokale1.find(b => b.day === day && b.time === hour);
                 if (booking) {
                     const bookingDiv = document.createElement("div");
                     bookingDiv.className = `booking ${booking.color}`;
                     bookingDiv.innerHTML = `${booking.name}<br>${hour}:00 - ${hour + booking.duration}:00`;
+                
+                    // Juster højden baseret på varigheden
+                    bookingDiv.style.height = `${48 * booking.duration}px`;
+                    
                     cell.appendChild(bookingDiv);
                 }
+                
 
                 calendarGrid.appendChild(cell);
             }
@@ -70,3 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateWeek();
 });
+
+
+
