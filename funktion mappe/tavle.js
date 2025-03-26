@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const postDiv = document.createElement("div");
             postDiv.classList.add("notice");
             postDiv.innerHTML = `
-                <h3>${post.title}</h3>
+                <h3>${post.title}</h3> 
                 <p1>${post.content}</p1>
                 <button class="delete-btn" onclick="window.deletePost(${index})">Slet</button>
             `;
@@ -58,3 +58,4 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPosts();
     };
 });
+
