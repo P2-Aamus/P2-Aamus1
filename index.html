@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar and Notice Board</title>
     <link rel="stylesheet" href="css mappe/styles.css">
-    <script src="funktion mappe/"></script>
+    <script src="funktion mappe/script.js"></script>
 </head>
 <body>
 
@@ -13,24 +13,70 @@
         <section class="calendar-container">
             <h2>Calendar</h2>
             <div class="calendar">
-
             </div>
         </section>
 
-        <!-- Notice Board Section -->
-        <section class="notice-board-container">
-            <h2>Notice Board</h2>
-            <div class="notice-board">
+    <section class="notice-board-container">
+            <link rel="stylesheet" href="css mappe/tavle.css">
                 <div class="notice-item">
-                   
-                </div>
-                <div class="notice-item">
-            
-                </div>
+                <script src="funktion mappe/tavle.js" defer></script>
                 
+           
+            <div>
+                <h2 class="board-title">Opslagstavle</h2>
             </div>
+                
+
+            <div class="container">
+                <div class="button-container">
+                    <button class="button button1" id="noticeBoardButton">Opslagstavle</button>
+                    <button class="button button2" id="dineTiderButton">Dine tider</button>
+                    <button class="button button3">Find band</button>  
+                </div>
+            </div>
+           
+            <div class="tid-container">
+              
+                <ul class="menu">
+                    <li class="menu_blocks">
+                      <a  id="dineTiderButton"></a>	
+                      <a id="one-content" >Dine Tider</a>
+                    </li>
+                  </ul>
+            </div>
+            
+
+            
+            <div class="posts-container" id="two-content" hidden="true" >    
+                <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+                <ul class="menu">
+                    <li class="menu__blocks">
+                        
+                        <a id="noticeBoardButton"></a>	
+                        <a id="two-content" >XD</a>
+                    
+                      </li>
+                </ul>   
+                <!---->
+                <form id="postForm">
+                    <div class="form-group">
+                        <input type="text" id="postTitle" placeholder="Title" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="postContent" placeholder="Write your post..." required class="post-textarea"></textarea>
+                    </div>
+                    <button type="button button4">Post</button>
+                </form>
+                <div id="messageBoard" class="notice-board"></div> 
+                  
+            </div>
+        
+            
+
         </section>
     </div>
+
+   
 
 </body>
 </html>
