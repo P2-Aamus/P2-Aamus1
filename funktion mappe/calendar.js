@@ -152,3 +152,27 @@ window.onclick = function(event) {
   }
 }
 });
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the close button
+var closeBtn = document.querySelector(".close");
+
+// Function to open the modal
+function openModal() {
+    modal.style.display = "block";
+}
+
+// Function to close the modal
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Close the modal when clicking outside of it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
