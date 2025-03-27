@@ -1,13 +1,28 @@
+let currentLocation = "lokale1"; // Standard lokation
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const calendarGrid = document.getElementById("calendar-grid");
     const weekNumberElement = document.getElementById("week-number");
     let currentWeek = 12;
+    
 
-    let currentLocation = "lokale1"; // Standard lokation
-    let allBookings = {
-        lokale1: [{ day: 1, time: 12, duration: 4, name: "Din tid", color: "blue" },
-            { day: 3, time: 18, duration: 2, name: "Anders", color: "red" },
-            { day: 4, time: 10, duration: 2, name: "Frank", color: "red" }],
+
+    //Change room
+    //window.RoomChange is written this way, so that the global scope can access it
+    window.RoomChange = function (){
+        let select = document.getElementById('location-select'); 
+        let value = select.options[select.selectedIndex].value; 
+        currentLocation = value;
+        renderCalendar();
+        }
+   
+    let allBookings12 = {
+        lokale1: [{ day: 1, time: 12, duration: 3, name: "Din tid", color: "blue", bankPå: true},
+            { day: 3, time: 18, duration: 2, name: "Anders", color: "red", bankPå: false},
+            { day: 4, time: 10, duration: 2, name: "Frank", color: "red", bankPå: true }],
         lokale2: [{ day: 3, time: 8, duration: 3, name: "Din tid", color: "blue" }],
         lokale3: [],
         lokale4: [],
@@ -17,16 +32,34 @@ document.addEventListener("DOMContentLoaded", () => {
         lokale8: []
     };
 
+    let allBookings13 = {
+        lokale1: [{ day: 3, time: 10, duration: 2, name: "Din tid", color: "blue", bankPå: true},
+            { day: 6, time: 9, duration: 5, name: "Anders", color: "red", bankPå: false},
+            { day: 1, time: 16, duration: 3, name: "Frank", color: "red", bankPå: true }],
+        lokale2: [{ day: 2, time: 8, duration: 4, name: "Din tid", color: "blue" }],
+        lokale3: [],
+        lokale4: [],
+        lokale5: [],
+        lokale6: [],
+        lokale7: [],
+        lokale8: []
+    };
 
 
-    function prevWeek() {
-        currentWeek--;
-        updateWeek();
+    let currentBookings = allBookings12[currentLocation];
+
+    window.prevWeek = function () {
+        if (currentWeek > 1) { // Tjek for at undgå under 1
+            currentWeek--;
+            updateWeek();
+        }
     }
-
-    function nextWeek() {
-        currentWeek++;
-        updateWeek();
+    
+    window.nextWeek = function () {
+        if (currentWeek < 52) { // Tjek for at undgå over 52
+            currentWeek++;
+            updateWeek();
+        }
     }
 
     function updateWeek() {
@@ -36,10 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderCalendar() {
         calendarGrid.innerHTML = "";
-
+    
         const days = ["Tid", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
         const hours = Array.from({ length: 15 }, (_, i) => i + 8);
-
+    
         // Header (Ugedage)
         days.forEach(day => {
             const headerCell = document.createElement("div");
@@ -47,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headerCell.textContent = day;
             calendarGrid.appendChild(headerCell);
         });
-
+    
         // Tidspunkter og celler
         for (let hour of hours) {
             // Tidskolonne
@@ -55,24 +88,24 @@ document.addEventListener("DOMContentLoaded", () => {
             timeCell.className = "calendar-cell time-label";
             timeCell.textContent = `${hour}:00`;
             calendarGrid.appendChild(timeCell);
-
+    
             // Ugedagsceller
             for (let day = 0; day < 7; day++) {
                 const cell = document.createElement("div");
                 cell.className = "calendar-cell";
-                
-// Tilføj weekend-klasse til lørdag og søndag
-if (day === 5 || day === 6) {
-    cell.classList.add("weekend");
-}
-
-cell.onclick = () => openModal(day, hour);
-
-
-                // Check om der er en booking på dette tidspunkt
-                const booking = allBookings.lokale1.find(b => b.day === day && b.time === hour);
+                cell.onclick = () => openModal(day, hour); // Gør cellen klikbar
+    
+                // Hent bookinger for den aktuelle lokation
+                if(currentWeek == 12) {
+                 currentBookings = allBookings12[currentLocation];
+                }
+                else if(currentWeek == 13) {
+                     currentBookings = allBookings13[currentLocation];
+                }
+                let booking = currentBookings.find(b => b.day === day && b.time === hour);
+    
                 if (booking) {
-                    const bookingDiv = document.createElement("div");
+                    let bookingDiv = document.createElement("div");
                     bookingDiv.className = `booking ${booking.color}`;
                     bookingDiv.innerHTML = `${booking.name}<br>${hour}:00 - ${hour + booking.duration}:00`;
                 
@@ -81,24 +114,14 @@ cell.onclick = () => openModal(day, hour);
                     
                     cell.appendChild(bookingDiv);
                 }
-                
-
+                                         
                 calendarGrid.appendChild(cell);
             }
         }
     }
+    
 
-    document.querySelector("button[onclick='prevWeek()']").addEventListener("click", prevWeek);
-    document.querySelector("button[onclick='nextWeek()']").addEventListener("click", nextWeek);
+
 
     updateWeek();
 });
-
-//Change room
-let roomSelect = document.getElementById("location-select");
-
-function RoomChange() {
-    console.log("heeeeej");
-    
-
-}
