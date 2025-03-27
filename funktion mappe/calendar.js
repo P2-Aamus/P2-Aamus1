@@ -1,4 +1,5 @@
 let currentLocation = "lokale1"; // Standard lokation
+let bookingDiv;
 
 
 
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lokale3: [],
         lokale4: [],
         lokale5: [],
-        lokale6: [],
+        lokale6: [],   
         lokale7: [],
         lokale8: []
     };
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCalendar();
     }
 
-    function renderCalendar() {
+    window.renderCalendar = function () {
         calendarGrid.innerHTML = "";
     
         const days = ["Tid", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let day = 0; day < 7; day++) {
                 const cell = document.createElement("div");
                 cell.className = "calendar-cell";
-                cell.onclick = () => openModal(day, hour); // Gør cellen klikbar
+                //cell.onclick = () => openModal(day, hour); // Gør cellen klikbar
     
                 // Hent bookinger for den aktuelle lokation
                 if(currentWeek == 12) {
@@ -105,10 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 let booking = currentBookings.find(b => b.day === day && b.time === hour);
     
                 if (booking) {
-                    let bookingDiv = document.createElement("div");
+                    bookingDiv = document.createElement("div");
                     bookingDiv.className = `booking ${booking.color}`;
                     bookingDiv.innerHTML = `${booking.name}<br>${hour}:00 - ${hour + booking.duration}:00`;
-                
+                    //bookingDiv.addEventListener('click', document.getElementById("popup")?.style.display = "none");
                     // Juster højden baseret på varigheden
                     bookingDiv.style.height = `${48 * booking.duration}px`;
                     
@@ -124,4 +125,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     updateWeek();
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = bookingDiv;
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 });

@@ -11,6 +11,7 @@
 </head>
 <body>
 
+
     <section class="calendar-container">
         <script src="funktion mappe/calendar.js"></script>
         <h2>Booking Kalender</h2>
@@ -30,6 +31,7 @@
             <button onclick="nextWeek()">▶</button>
         </div>
         <div class="calendar-grid" id="calendar-grid"></div>
+        <div id="popup"></div>
     </section>
 
 
@@ -50,6 +52,24 @@
         </section>
     </div>
 
-    
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p> Anders Jensen</p> 
+          <p>  12:00 - 15:00</p>
+          <p>  torsdag 27/3</p>
+          <p> Lokale 1 - Trommer</p>
+          <p></p>   
+          <p> Tlf nr: +45 26628491</p> 
+          
+        </div>
+
+
+
+    </div>
 </body>
 </html>
