@@ -4,19 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function openNoticeBoard() {
         let postsElement = document.getElementById('posts');
         let messageBoardElement = document.getElementById('messageBoard');
-        
-        /*
-        if (postsElement) {
-            postsElement.style.visibility = 'hidden';
-        }
-        if (messageBoardElement) {
-            messageBoardElement.style.visibility = 'hidden';
-        }
-            */
-        console.log("Notice board opened!"); // Example code
-        //More code.
+
+        // Example: Log the action to the console
+        console.log("Notice board opened!");
+
+        // Additional logic can be added here if needed
     }
 
+    if (noticeBoardButton) {
+        noticeBoardButton.addEventListener("click", openNoticeBoard);
+    }
 
-    noticeBoardButton.addEventListener("click", openNoticeBoard);
+    // Removed redundant postForm handling logic since it is already implemented in tavle.js
 });

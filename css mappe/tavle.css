@@ -19,7 +19,7 @@
 
 .notice-board {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:nowrap;
     gap: 15px;
     justify-content: center;
     padding: 20px;
@@ -27,6 +27,13 @@
     max-height: 50vh;
 }
 
+#messageBoard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    
+}
 
 .button1, .button2, .button3 {
     background-color: white; 
@@ -104,6 +111,11 @@
     height: 5rem; 
     box-sizing: border-box;
 }
+.postTitle {
+    width: 100%;
+}
+
+
 
 .button4 {
     margin: 0 auto;
@@ -178,7 +190,9 @@
     align-items: center;
     justify-content: center;
   
-    -webkit-transition: 1500ms ease; }
+    -webkit-transition: 1500ms ease;
+    transition: 1500ms ease;
+   }
   
   .menu__words-1, .menu__words-2, .menu__words-3 {
     background-color: white;
@@ -193,7 +207,9 @@
     text-align: left;
     opacity: 0;
   
-    -webkit-transition: 1500ms ease; }
+    -webkit-transition: 1500ms ease; 
+    transition: 1500ms ease;
+  }
   
   
   .show {
