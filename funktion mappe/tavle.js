@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p1>${post.content}</p1>
           <button class="delete-btn" onclick="window.deletePost(${index})">Slet</button>
       `;
-      messageBoard.appendChild(postDiv);
+      messageBoard.prepend(postDiv);
     });
   }
 
