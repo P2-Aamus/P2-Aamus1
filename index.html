@@ -44,17 +44,23 @@
                 
 
                 <div class="band-container" id="three-content" hidden="true">
+                    <h>Find et band eller nye medlemmer til jeres band!</h>
+                    <!--
                     <ul class="menu">
                         <li class="menu_blocks">
-                        <a  id="findBandButton"></a>	
-                        <a id="three-content" >Her får du hjælp til at finde en band på 0.5</a>
+                        <a id="findBandButton"></a>	
+                        <a id="three-content" ></a>
                         </li>
                     </ul>
+                    -->
                     <form>
                         <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER">
                         <label for="søger">Søger efter band</label><br>
                         <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER">
                         <label for="leder">Søger efter medlem</label><br>
+                        <input type="text" id="omJer" placeholder="Om jer/Om dig" required>
+                        <input type="text" id="tlfNr" placeholder="Tlf. nummer" required>
+                        <input type="text" id="mail" placeholder="Mail" required>
                     </form>
                 </div>
 
