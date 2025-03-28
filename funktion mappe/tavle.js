@@ -3,12 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const postForm = document.getElementById("postForm");
   const postTitle = document.getElementById("postTitle");
   const postContent = document.getElementById("postContent");
+  const bandMessageBoard = document.getElementById("bandMessageBoard");
+  const bandPostForm = document.getElementById("postForm");
+  const bandPostTitle = document.getElementById("postTitle");
+  const bandPostContent = document.getElementById("postContent")
 
   let posts = JSON.parse(localStorage.getItem("posts")) || [];
 
   // Function to add a post
   function addPost(title, content) {
-    posts.push({ title, content });
+    const timestamp = new Date().toLocaleString();
+    posts.push({ title, content, timestamp });
     savePosts();
     renderPosts();
   }
@@ -34,11 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
       postDiv.innerHTML = `
           <h3>${post.title}</h3> 
           <p1>${post.content}</p1>
+          <small>${post.timestamp}</small>
           <button class="delete-btn" onclick="window.deletePost(${index})">Slet</button>
       `;
       messageBoard.prepend(postDiv);
     });
   }
+
+  
 
   // Form submit event listener
   postForm.addEventListener("submit", (event) => {
@@ -47,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     postTitle.value = "";
     postContent.value = "";
   });
+
+  
 
   // Load existing posts when page loads
   renderPosts();
