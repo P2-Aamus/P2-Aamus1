@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar and Notice Board</title>
     <link rel="stylesheet" href="css mappe/styles.css">
+    <link rel="stylesheet" href="css mappe/calendar.css">
     <script src="funktion mappe/"></script>
 </head>
 <body>
@@ -12,10 +13,55 @@
     <div class="container">
         <section class="calendar-container">
             <h2>Calendar</h2>
-            <div class="calendar">
-
+            <div id="container"></div>
+            <div id="header">
+                <div id="monthDisplay"></div>
+                <div>
+                    <button id="backButton">Back</button>
+                    <button id="nextButton">Next</button>
+                </div>
             </div>
-        </section>
+
+            <div id="weekdays">
+                <div>Mandag</div>
+                <div>Tirsdag</div>
+                <div>Onsdag</div>
+                <div>Torsdag</div>
+                <div>Fredag</div>
+                <div>Lørdag</div>
+                <div>Søndag</div>
+            </div>
+
+
+            <div id="calendar"></div>
+        </div>
+
+        <div id="newEventModal">
+            <h2>New Event</h2>
+      
+            <input id="eventTitleInput" placeholder="Event Title" />
+      
+            <button id="saveButton">Save</button>
+            <button id="cancelButton">Cancel</button>
+          </div>
+      
+          <div id="deleteEventModal">
+            <h2>Event</h2>
+      
+            <p id="eventText"></p>
+      
+            <button id="deleteButton">Delete</button>
+            <button id="closeButton">Close</button>
+          </div>
+
+          <div id="modalBackDrop"></div>
+
+
+
+
+
+
+
 
         <!-- Notice Board Section -->
         <section class="notice-board-container">
@@ -31,6 +77,6 @@
             </div>
         </section>
     </div>
-
+    <script src="funktion mappe/calendar.js"></script>
 </body>
 </html>
