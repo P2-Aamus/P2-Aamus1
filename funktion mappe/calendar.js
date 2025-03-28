@@ -38,7 +38,7 @@ function load() {
   const firstDayOfMonth = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   
-  const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
+  const dateString = firstDayOfMonth.toLocaleDateString('da-dk', {
     weekday: 'long',
     year: 'numeric',
     month: 'numeric',
@@ -47,7 +47,7 @@ function load() {
   const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
   document.getElementById('monthDisplay').innerText = 
-    `${dt.toLocaleDateString('en-us', { month: 'long' })} ${year}`;
+    `${dt.toLocaleDateString('da-dk', { month: 'long' })} ${year}`;
 
   calendar.innerHTML = '';
 
