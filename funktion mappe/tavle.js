@@ -83,3 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
   
+(function() {
+  $('#findBandsButton').click(function() {
+    if ($('#three-content').hasClass('show')) {
+      $('#three-content').removeClass('show');
+      $('#three-content').addClass('hide');
+    } else {
+      $('#three-content').addClass('show');
+      $('#three-content').removeClass('hide');
+    }
+  });
+})();
+  
