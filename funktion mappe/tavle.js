@@ -64,9 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if ($('#one-content').hasClass('hide')) {
         $('#one-content').removeClass('hide');
         $('#one-content').addClass('show');
+        $('#two-content').removeClass('show');
+        $('#two-content').addClass('hide');
+        $('#three-content').removeClass('show');
+        $('#three-content').addClass('hide');
       } else {
         $('#one-content').addClass('hide');
         $('#one-content').removeClass('show');
+        
+        
       }
     });
   })();
@@ -76,9 +82,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($('#two-content').hasClass('show')) {
       $('#two-content').removeClass('show');
       $('#two-content').addClass('hide');
+      
+      
     } else {
       $('#two-content').addClass('show');
       $('#two-content').removeClass('hide');
+      $('#one-content').addClass('hide');
+      $('#one-content').removeClass('show');
+      $('#three-content').removeClass('show');
+      $('#three-content').addClass('hide');
+      
     }
   });
 })();
@@ -91,6 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       $('#three-content').addClass('show');
       $('#three-content').removeClass('hide');
+      $('#two-content').removeClass('show');
+      $('#two-content').addClass('hide');
+      $('#one-content').addClass('hide');
+      $('#one-content').removeClass('show');
+      
     }
   });
 })();
