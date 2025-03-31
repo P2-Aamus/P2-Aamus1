@@ -20,6 +20,7 @@
                 <script src="funktion mappe/tavle.js" defer></script>
                 <link rel="stylesheet" href="css mappe/bands.css">
                 <script src="funktion mappe/bands.js"></script>
+                <script src="funktion mappe/tid.js" defer></script>
                     
             
                 <div>
@@ -36,12 +37,13 @@
                 </div>
             
                 <div class="tid-container" id="one-content" hidden="true">
-                    <ul class="menu">
-                        <li class="menu_blocks">
-                        <a  id="dineTiderButton"></a>	
-                        <a id="one-content" >Dine Tider</a>
-                        </li>
-                    </ul>
+                    <form id="dateForm">
+                        <label for="eventDate">Event Date:</label>
+                        <input type="date" id="eventDate" name="eventDate" required>
+                        <button type="submit">Save Date</button>
+                        <button id="downloadDates">Download Dates</button>
+                      </form>
+                      <div id="savedDates"></div>
                 </div>
                 
 
