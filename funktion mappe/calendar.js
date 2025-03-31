@@ -51,7 +51,7 @@ function load() {
 
   calendar.innerHTML = '';
 
-  for(let i = 1; i <= paddingDays + daysInMonth; i++) {
+  for(let i = 1; i < 169; i++) {
     const daySquare = document.createElement('div');
     daySquare.classList.add('day');
 
