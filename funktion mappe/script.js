@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
     const noticeBoardButton = document.getElementById("noticeBoardButton");
 
     function openNoticeBoard() {
@@ -16,4 +16,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Removed redundant postForm handling logic since it is already implemented in tavle.js
-});
+}); */

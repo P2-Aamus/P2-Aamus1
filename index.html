@@ -18,6 +18,8 @@
         <section class="notice-board-container">
                 <link rel="stylesheet" href="css mappe/tavle.css">
                 <script src="funktion mappe/tavle.js" defer></script>
+                <link rel="stylesheet" href="css mappe/bands.css">
+                <script src="funktion mappe/bands.js"></script>
                     
             
                 <div>
@@ -53,14 +55,16 @@
                         </li>
                     </ul>
                     -->
-                    <form>
+                    <form id="bandForm">
                         <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER">
                         <label for="søger">Søger efter band</label><br>
                         <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER">
                         <label for="leder">Søger efter medlem</label><br>
-                        <input type="text" id="omJer" placeholder="Om jer/Om dig" required>
-                        <input type="text" id="tlfNr" placeholder="Tlf. nummer" required>
-                        <input type="text" id="mail" placeholder="Mail" required>
+                        <input type="text" id="omJer" name="omJer" placeholder="Om jer/Om dig" required>
+                        <input type="text" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
+                        <input type="text" id="mail" name="mail" placeholder="Mail" required>
+                        <button type="submit">Submit</button>
+                        <div id="bandMessageBoard" class="notice-board"></div>
                     </form>
                 </div>
 
