@@ -1,36 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar and Notice Board</title>
-    <link rel="stylesheet" href="css mappe/styles.css">
-    <script src="funktion mappe/"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calendar and Notice Board</title>
+        <link rel="stylesheet" href="css mappe/styles.css">
+        <script src="funktion mappe/script.js"></script>
+    </head>
+    <body>
 
-    <div class="container">
-        <section class="calendar-container">
-            <h2>Calendar</h2>
-            <div class="calendar">
+        <div class="container">
+            <section class="calendar-container">
+                <h2>Calendar</h2>
+                <div class="calendar"></div>
+            </section>
 
-            </div>
-        </section>
-
-        <!-- Notice Board Section -->
         <section class="notice-board-container">
-            <h2>Notice Board</h2>
-            <div class="notice-board">
-                <div class="notice-item">
-                   
-                </div>
-                <div class="notice-item">
+                <link rel="stylesheet" href="css mappe/tavle.css">
+                <script src="funktion mappe/tavle.js" defer></script>
+                <link rel="stylesheet" href="css mappe/bands.css">
+                <script src="funktion mappe/bands.js"></script>
+                <script src="funktion mappe/tid.js" defer></script>
+                    
             
+                <div>
+                    <h2 class="board-title">Dit Overblik</h2>
+                </div>
+                    
+
+                <div class="container">
+                    <div class="button-container">
+                        <button class="button button1" id="noticeBoardButton">Opslagstavle</button>
+                        <button class="button button2" id="dineTiderButton">Dine tider</button>
+                        <button class="button button3" id="findBandsButton">Find band</button>  
+                    </div>
+                </div>
+            
+                <div class="tid-container" id="one-content" hidden="true">
+                    <form id="dateForm">
+                        <label for="eventDate">Event Date:</label>
+                        <input type="date" id="eventDate" name="eventDate" required>
+                        <button type="submit">Save Date</button>
+                        <button id="downloadDates">Download Dates</button>
+                      </form>
+                      <div id="savedDates"></div>
                 </div>
                 
-            </div>
-        </section>
-    </div>
 
-</body>
+                <div class="band-container" id="three-content" hidden="true">
+                    <h>Find et band eller nye medlemmer til jeres band!</h>
+                    <!--
+                    <ul class="menu">
+                        <li class="menu_blocks">
+                        <a id="findBandButton"></a>	
+                        <a id="three-content" ></a>
+                        </li>
+                    </ul>
+                    -->
+                    <form id="bandForm">
+                        <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER">
+                        <label for="søger">Søger efter band</label><br>
+                        <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER">
+                        <label for="leder">Søger efter medlem</label><br>
+                        <input type="text" id="omJer" name="omJer" placeholder="Om jer/Om dig" required>
+                        <input type="text" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
+                        <input type="text" id="mail" name="mail" placeholder="Mail" required>
+                        <button type="submit">Submit</button>
+                        <div id="bandMessageBoard" class="notice-board"></div>
+                    </form>
+                </div>
+
+               
+
+                <div class="posts-container" id="two-content" hidden="true" >    
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+                    <ul class="menu">
+                        <li class="menu__blocks">                   
+                            <a id="noticeBoardButton"></a>	
+                            <a id="two-content" ></a>
+                        </li>
+                    </ul>   
+                
+                <div class="posts-container" id="three-content" hidden="true" >    
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+                    <ul class="menu">
+                        <li class="menu__blocks">                   
+                            <a id="findBandsButton"></a>	
+                            <a id="three-content" ></a>
+                        </li>
+                    </ul>   
+                </div>
+                    <!---->
+                <div class="posts-container" >
+                    <form id="postForm">
+                        <div class="form-group">
+                            <input type="text" id="postTitle" placeholder="Title" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="postContent" placeholder="Write your post..." required class="post-textarea"></textarea>
+                        </div>
+                        <button type="button button4">Post</button>
+                    </form>
+                    <div id="messageBoard" class="notice-board"></div>
+                </div>
+
+                
+                    
+                         
+                </div> 
+
+                </div>
+            </section>
+        </div>
+    </body>
 </html>
