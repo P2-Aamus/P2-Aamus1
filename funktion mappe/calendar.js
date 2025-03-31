@@ -7,7 +7,11 @@ const newEventModal = document.getElementById('newEventModal');
 const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const weekdayElement = document.getElementById('weekdays');
+let weekDiv = null;
+const weekdays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+
+
 
 function openModal(date) {
   clicked = date;
@@ -26,14 +30,19 @@ function openModal(date) {
 
 function load() {
   const dt = new Date();
-
-  if (nav !== 0) {
-    dt.setMonth(new Date().getMonth() + nav);
-  }
+ 
 
   const day = dt.getDate();
+  const weekday = dt.getDay();
   const month = dt.getMonth();
   const year = dt.getFullYear();
+
+
+  for (let i = 0; i < 7; i++) {
+    weekDiv = document.createElement('div');
+    weekDiv.innerHTML = `${weekdays[0+i]} ${calculateDate(i)}`;
+    weekdayElement?.appendChild(weekDiv);
+  }
 
   const firstDayOfMonth = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -47,9 +56,12 @@ function load() {
   const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
   document.getElementById('monthDisplay').innerText = 
-    `${dt.toLocaleDateString('da-dk', { month: 'long' })} ${year}`;
+    `Uge ${getWeekNumber() + nav}`;
 
-  calendar.innerHTML = '';
+  
+    calendar.innerHTML = '';
+
+
 
   for(let i = 1; i < 169; i++) {
     const daySquare = document.createElement('div');
@@ -58,10 +70,10 @@ function load() {
     const dayString = `${month + 1}/${i - paddingDays}/${year}`;
 
     if (i > paddingDays) {
-      daySquare.innerText = i - paddingDays;
+      daySquare.innerText = '';
       const eventForDay = events.find(e => e.date === dayString);
 
-      if (i - paddingDays === day && nav === 0) {
+      if (i - paddingDays === day -1 && nav === 0) {
         daySquare.id = 'currentDay';
       }
 
@@ -117,6 +129,7 @@ function initButtons() {
   document.getElementById('nextButton').addEventListener('click', () => {
     nav++;
     load();
+    
   });
 
   document.getElementById('backButton').addEventListener('click', () => {
@@ -132,3 +145,36 @@ function initButtons() {
 
 initButtons();
 load();
+
+function getWeekNumber() {
+  let date = new Date();
+  // Torsdag i denne uge
+  date.setHours(0, 0, 0, 0); // tal nulstiller timer og sekunder
+  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7)); 
+  
+  // 1. januar
+  let week1 = new Date(date.getFullYear(), 0, 4);
+  
+  // Torsdag i uge 1
+  week1.setDate(week1.getDate() - ((week1.getDay() + 3) % 7));
+  
+  // Beregn uge nummer
+  let weekNumber = 1 + Math.round(((date - week1) / 86400000 - 3) / 7);
+  return weekNumber;
+}
+
+function calculateDate(i){
+  let currentDate = new Date().getDate;
+  let currentMonth = new Date().getMonth;
+  let currentYear = new Date().getFullYear;
+  
+  let daysInMonth = 31;
+
+  if (currentDate <= daysInMonth) { 
+    return `${currentDate} ${currentMonth}`;
+  } else {
+    currentDate = 1;
+    currentMonth++;
+    return `${currentDate } ${currentMonth + 1}`;  
+    }
+}
