@@ -9,12 +9,15 @@ body {
     padding-top: 20px;
 }
 
-.container {
+.container { /* Størrelse på container */
     display: flex;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
+    
 }
+
+
 
 /* Calendar Container */
 .calendar-container {

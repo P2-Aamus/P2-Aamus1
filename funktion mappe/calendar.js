@@ -178,3 +178,10 @@ function calculateDate(i){
     return `${currentDate } ${currentMonth + 1}`;  
     }
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const scrollable = document.querySelector(".scrollable-section");
+
+  // Scroll til midten
+  scrollable.scrollTop = scrollable.scrollHeight / 3;
+});
