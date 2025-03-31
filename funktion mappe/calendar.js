@@ -29,20 +29,19 @@ function openModal(date) {
 }
 
 function load() {
+
+  getNext7Days();
   const dt = new Date();
+
+  if (nav !== 0) {
+    dt.setMonth(new Date().getMonth() + nav);
+  }
  
 
   const day = dt.getDate();
   const weekday = dt.getDay();
   const month = dt.getMonth();
   const year = dt.getFullYear();
-
-
-  for (let i = 0; i < 7; i++) {
-    weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[0+i]} ${calculateDate(i)}`;
-    weekdayElement?.appendChild(weekDiv);
-  }
 
   const firstDayOfMonth = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -163,18 +162,26 @@ function getWeekNumber() {
   return weekNumber;
 }
 
-function calculateDate(i){
-  let currentDate = new Date().getDate;
-  let currentMonth = new Date().getMonth;
-  let currentYear = new Date().getFullYear;
-  
-  let daysInMonth = 31;
+function getNext7Days() {
+  // Clear previous content
+  weekdayElement.innerHTML = '';
 
-  if (currentDate <= daysInMonth) { 
-    return `${currentDate} ${currentMonth}`;
-  } else {
-    currentDate = 1;
-    currentMonth++;
-    return `${currentDate } ${currentMonth + 1}`;  
-    }
+  const next7Days = [];
+  const today = new Date();
+  
+  // Adjust for navigation (nav represents week shifts)
+  today.setDate(today.getDate() + nav * 7);
+
+  for (let i = 0; i < 7; i++) {
+    let futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + i);
+
+    const day = futureDate.getDate();
+    const month = futureDate.getMonth() + 1; // Months are 0-based
+    const year = futureDate.getFullYear();
+
+    weekDiv = document.createElement('div');
+    weekDiv.innerHTML = `${weekdays[i]} ${day}/${month}`;
+    weekdayElement.appendChild(weekDiv);
+  }
 }
