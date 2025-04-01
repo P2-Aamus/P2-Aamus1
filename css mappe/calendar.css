@@ -127,8 +127,35 @@ body {
     background-color: rgba(0,0,0,0.8);
   }
 
+  .scrollable-section {
+    height: 435px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    padding: 10px; /* Optional: Add some padding */
+    background-color: #f9f9f9; /* Optional: Background color */
+  }
 
 
+  #timeLabels {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #f200ff;
+    margin-top: 2.5px; /* Justér så det passer med overskriften */
+    align-items: flex-end;
+    height: 100%;
+  }
+  
 
-
+  
+  .time-slot {
+    height: 30px; /* Samme højde som .day */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+  }
+  
  

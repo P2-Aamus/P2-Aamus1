@@ -185,3 +185,18 @@ function getNext7Days() {
     weekdayElement.appendChild(weekDiv);
   }
 }
+  if (currentDate <= daysInMonth) { 
+    return `${currentDate} ${currentMonth}`;
+  } else {
+    currentDate = 1;
+    currentMonth++;
+    return `${currentDate } ${currentMonth + 1}`;  
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const scrollable = document.querySelector(".scrollable-section");
+
+  // Scroll til midten
+  scrollable.scrollTop = scrollable.scrollHeight / 3;
+});
