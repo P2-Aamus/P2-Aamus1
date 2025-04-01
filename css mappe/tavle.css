@@ -239,6 +239,19 @@
   }
 
 
+/* Highlight the form when editing */
+#dateTimeForm.edit-mode {
+  border: 2px solid #b9dbff;
+  padding: 10px;
+  background-color: #f0f8ff;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add a smooth transition effect */
+#dateTimeForm {
+  transition: all 0.3s ease-in-out;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

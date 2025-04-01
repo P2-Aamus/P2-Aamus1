@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calendar and Notice Board</title>
+        <title>Aalborg Musikforening</title>
         <link rel="stylesheet" href="css mappe/styles.css">
         <script src="funktion mappe/script.js"></script>
     </head>
@@ -11,7 +11,7 @@
 
         <div class="container">
             <section class="calendar-container">
-                <h2>Calendar</h2>
+                <h2>Kalender</h2>
                 <div class="calendar"></div>
             </section>
 
@@ -37,13 +37,17 @@
                 </div>
             
                 <div class="tid-container" id="one-content" hidden="true">
-                    <form id="dateForm">
-                        <label for="eventDate">Event Date:</label>
+                    <form id="dateTimeForm">
+                        <label for="eventDate">Dato:</label>
                         <input type="date" id="eventDate" name="eventDate" required>
-                        <button type="submit">Save Date</button>
-                        <button id="downloadDates">Download Dates</button>
-                      </form>
-                      <div id="savedDates"></div>
+                        <label for="eventTime">Tid:</label>
+                        <input type="time" id="eventTime" name="eventTime" required>
+                        <label>
+                            <input type="checkbox" id="bankPå" name="bankPå"> Bank på
+                        </label>
+                        <button type="submit">Tilføj tid</button>
+                    </form>
+                    <div id="bookingsContainer"></div>
                 </div>
                 
 
@@ -65,7 +69,7 @@
                         <input type="text" id="omJer" name="omJer" placeholder="Om jer/Om dig" required>
                         <input type="text" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
                         <input type="text" id="mail" name="mail" placeholder="Mail" required>
-                        <button type="submit">Submit</button>
+                        <button type="submit">Læg op</button>
                         <div id="bandMessageBoard" class="notice-board"></div>
                     </form>
                 </div>
@@ -94,12 +98,12 @@
                 <div class="posts-container" >
                     <form id="postForm">
                         <div class="form-group">
-                            <input type="text" id="postTitle" placeholder="Title" required>
+                            <input type="text" id="postTitle" placeholder="Titel" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="postContent" placeholder="Write your post..." required class="post-textarea"></textarea>
+                            <textarea id="postContent" placeholder="Skriv dit oplæg..." required class="post-textarea"></textarea>
                         </div>
-                        <button type="button button4">Post</button>
+                        <button type="button button4">Læg op</button>
                     </form>
                     <div id="messageBoard" class="notice-board"></div>
                 </div>
