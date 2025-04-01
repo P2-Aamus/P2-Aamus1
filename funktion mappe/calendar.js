@@ -172,7 +172,7 @@ function getNext7Days() {
   // Adjust for navigation (nav represents week shifts)
   today.setDate(today.getDate() + nav * 7);
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = -1; i < 6; i++) {
     let futureDate = new Date(today);
     futureDate.setDate(today.getDate() + i);
 
@@ -181,18 +181,18 @@ function getNext7Days() {
     const year = futureDate.getFullYear();
 
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i]} ${day}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
     weekdayElement.appendChild(weekDiv);
   }
 }
-  if (currentDate <= daysInMonth) { 
-    return `${currentDate} ${currentMonth}`;
-  } else {
-    currentDate = 1;
-    currentMonth++;
-    return `${currentDate } ${currentMonth + 1}`;  
-    }
-}
+  //if (currentDate <= daysInMonth) { 
+    //return `${currentDate} ${currentMonth}`;
+  //} else {
+    //currentDate = 1;
+    //currentMonth++;
+    //return `${currentDate } ${currentMonth + 1}`;  
+    //}
+
 
 window.addEventListener("DOMContentLoaded", () => {
   const scrollable = document.querySelector(".scrollable-section");

@@ -21,7 +21,7 @@ body {
 
 /* Calendar Container */
 .calendar-container {
-    width: 68%; /* Take up almost half of the page */
+    width: 90%; /* Take up almost half of the page */
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
