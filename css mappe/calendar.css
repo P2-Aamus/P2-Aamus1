@@ -65,7 +65,7 @@ body {
     flex-direction: column;
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
-    padding: 0; /* ← Remove padding! */
+    padding: 5p; /* ← Remove padding! */
     position: static;
   }
   
