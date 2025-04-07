@@ -20,6 +20,8 @@ const endTimeInput = document.getElementById("endTime");
 const tlf_nrInput = document.getElementById("eventTlfNr");
 const bankPåInput = document.getElementById("bankPå");
 
+let chosenLokale = 'events1'; // Default value for chosenLokale
+
 
 eventSelectInput.addEventListener("change", (event) => {
  console.log(event.target.value);
@@ -61,7 +63,11 @@ function openModal(date) {
   backDrop.style.display = 'block';
 }
 
-function load() {
+async function load() {
+
+  let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
+  let response = await responseRaw.json();
+
 
   getNext7Days();
   const dt = new Date();
@@ -103,18 +109,19 @@ function load() {
 
     if (i > 0) {
       daySquare.innerText = '';
-      const eventForDay = events.find(e => e.date === dayString);
+      const eventForTime = events.find(e => e.date === dayString);
 
       if (i === (dayOfWeek * 7 * hour) +1 && nav === 0) {
         daySquare.id = 'currentDay';
       }
 
-      if (eventForDay) {
+      if (eventForTime) {
         const eventDiv = document.createElement('div');
         eventDiv.classList.add('event');
-        eventDiv.innerText = eventForDay.title;
+        eventDiv.innerText = response.title;
         daySquare.appendChild(eventDiv);
       }
+
 
       daySquare.addEventListener('click', () => openModal(dayString));
     } else {
