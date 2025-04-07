@@ -69,6 +69,17 @@ app.get('/api/get_opslagstavle', (req, res) => {
   });
 });
 
+app.get('/api/signup', (req, res) => {
+  connection.query('SELECT * FROM login', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.get('/api/get_find_band', (req, res) => {
   connection.query('SELECT * FROM find_band', (err, results) => {
     if (err) {
@@ -132,6 +143,39 @@ app.post('/api/find_band', (req, res) => {
   });
 });
 
+app.post('/api/signup', (req, res) => {
+  const { login, kodeord } = req.body;
+
+  if (!login || !kodeord) {
+    return res.status(400).json({ error: 'login and kodeord are required' });
+  }
+
+  const sql = 'INSERT INTO login (login, kodeord) VALUES (?, ?)';
+  connection.query(sql, [login, kodeord], (err, results) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.status(201).json({ message: 'User registered successfully', userId: results.insertId });
+  });
+});
+/*
+app.post('/api/signup', (req, res) => {
+  console.log("luder skvinde");
+  const { login, kodeord} = req.body
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO login (login, kodeord) VALUES (?, ?)';
+  connection.query(sql, [login, kodeord], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', title: results.title});
+      console.log(results);
+    }
+  });
+});
+*/
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
