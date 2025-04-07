@@ -7,12 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const tlf_nrInput = document.getElementById("eventTlfNr");
     const bankPåInput = document.getElementById("bankPå");
     const bookingsContainer = document.getElementById("bookingsContainer");
+    const eventSelectInput = document.getElementById("eventSelect");
     const formTitle = document.createElement("h3"); // Add a title to indicate edit mode
+    let chosenLokale = "events1"; // Default value for chosenLokale
     formTitle.textContent = "Tilføj tid";
     dateTimeForm.prepend(formTitle);
 
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     let editingIndex = null; // Track the index of the booking being edited
+
+    eventSelectInput.addEventListener("change", (event) => {
+        chosenLokale = event.target.value;
+        renderBookings();
+    });
 
         // Form submit event listener
         dateTimeForm.addEventListener("submit", (event) => {
@@ -31,12 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
             eventDateInput.value = "";
             eventTimeInput.value = "";
             bankPåInput.checked = false;
+            renderBookings();
         });
 
 
     // Function to save bookings to localStorage
     function saveBookings() {        
-        fetch('http://localhost:3000/api/events1', {
+        fetch(`http://localhost:3000/api/${chosenLokale}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -60,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function renderBookings() {
         bookingsContainer.innerHTML = "";
 
-        let responseRaw= await fetch('http://localhost:3000/api/get_events1');
+        let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
         let response = await responseRaw.json();
 
         for (let booking of response) {

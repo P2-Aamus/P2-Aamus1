@@ -10,7 +10,40 @@ const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdayElement = document.getElementById('weekdays');
 let weekDiv = null;
 const weekdays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+const eventSelectInput = document.getElementById("eventSelect");
 
+const nameForm = document.getElementById("eventName");
+const dateTimeForm = document.getElementById("dateTimeForm");
+const eventDateInput = document.getElementById("eventDate");
+const eventTimeInput = document.getElementById("eventTime");
+const endTimeInput = document.getElementById("endTime");
+const tlf_nrInput = document.getElementById("eventTlfNr");
+const bankPåInput = document.getElementById("bankPå");
+
+
+eventSelectInput.addEventListener("change", (event) => {
+ console.log(event.target.value);
+
+});
+
+dateTimeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const name = nameForm.value;
+  const tlf_nr = tlf_nrInput.value;
+  const endTime = endTimeInput.value;
+  const date = eventDateInput.value;
+  const time = eventTimeInput.value;
+  const bankPå = bankPåInput.checked;
+  //addOrUpdateBooking(date, time, bankPå);
+  saveBookings();
+  name.value = "";
+  tlf_nrInput.value = "";
+  endTimeInput.value = "";
+  eventDateInput.value = "";
+  eventTimeInput.value = "";
+  bankPåInput.checked = false;
+  closeModal();
+});
 
 
 function openModal(date) {
@@ -37,8 +70,9 @@ function load() {
     dt.setMonth(new Date().getMonth() + nav);
   }
  
-
+  const hour = new Date().getHours(); // e.g., 14
   const day = dt.getDate();
+  const dayOfWeek = dt.getDay();
   const weekday = dt.getDay();
   const month = dt.getMonth();
   const year = dt.getFullYear();
@@ -52,7 +86,7 @@ function load() {
     month: 'numeric',
     day: 'numeric',
   });
-  const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+
 
   document.getElementById('monthDisplay').innerText = 
     `Uge ${getWeekNumber() + nav}`;
@@ -61,18 +95,17 @@ function load() {
     calendar.innerHTML = '';
 
 
-
-  for(let i = 1; i < 169; i++) {
+  for(let i = 1; i <= 168; i++) {
     const daySquare = document.createElement('div');
     daySquare.classList.add('day');
 
-    const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+    const dayString = `${month + 1}/${i}/${year}`;
 
-    if (i > paddingDays) {
+    if (i > 0) {
       daySquare.innerText = '';
       const eventForDay = events.find(e => e.date === dayString);
 
-      if (i - paddingDays === day -1 && nav === 0) {
+      if (i === (dayOfWeek * 7 * hour) +1 && nav === 0) {
         daySquare.id = 'currentDay';
       }
 
@@ -181,7 +214,7 @@ function getNext7Days() {
     const year = futureDate.getFullYear();
 
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day + 1}/${month}`;
     weekdayElement.appendChild(weekDiv);
   }
 }
