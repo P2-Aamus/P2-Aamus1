@@ -118,12 +118,18 @@
             
                 <div class="tid-container" id="one-content" hidden="true">
                     <form id="dateTimeForm">
+                        <label for="eventName">Navn:</label>
+                        <input type="text" id="eventName" placeholder="Navn" required>
                         <label for="eventDate">Dato:</label>
                         <input type="date" id="eventDate" name="eventDate" required>
                         <label for="eventTime">Tid:</label>
                         <input type="time" id="eventTime" name="eventTime" required>
-                        <label>
-                            <input type="checkbox" id="bankPå" name="bankPå"> Bank på
+                        <label for="endTime">Slut tid:</label>
+                        <input type="time" id="endTime" name="endTime" required>
+                        <label for="eventTlfNr">Tlf Nr.:</label>
+                        <input type="number" id="eventTlfNr" placeholder="Tlf Nr." required>
+                        <label>   
+                        <input type="checkbox" id="bankPå" name="bankPå"> Bank på
                         </label>
                         <button type="submit">Tilføj tid</button>
                     </form>

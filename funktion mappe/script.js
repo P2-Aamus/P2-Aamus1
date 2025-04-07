@@ -47,7 +47,7 @@ connection.connect((err) => {
   console.log('Connected to MySQL');
 });
 
-app.get('/hej', (req, res) => {
+app.get('/api/get_events1', (req, res) => {
   connection.query('SELECT * FROM events1', (err, results) => {
     if (err) {
       console.error(err);
@@ -58,8 +58,30 @@ app.get('/hej', (req, res) => {
   });
 });
 
+app.get('/api/get_opslagstavle', (req, res) => {
+  connection.query('SELECT * FROM opslagstavle', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
 
-app.post('/api/users', (req, res) => {
+app.get('/api/get_find_band', (req, res) => {
+  connection.query('SELECT * FROM find_band', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+app.post('/api/events1', (req, res) => {
   console.log("luder skvinde");
   const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
 
@@ -71,6 +93,40 @@ app.post('/api/users', (req, res) => {
       res.status(500).json({ error: 'database error'})
     } else {
       res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/opslagstavle', (req, res) => {
+  console.log("luder skvinde");
+  const { title, content, time, date} = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO opslagstavle (title, content, time, date) VALUES (?, ?, ?, ?)';
+  connection.query(sql, [title, content, time, date], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/find_band', (req, res) => {
+  console.log("luder skvinde");
+  const { soeger_band, soeger_medlemmer, title, tlf_nr, mail, time, date} = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO find_band (soeger_band, soeger_medlemmer, title, tlf_nr, mail, time, date) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [soeger_band, soeger_medlemmer, title, tlf_nr, mail, time, date], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', title: results.title});
       console.log(results);
     }
   });

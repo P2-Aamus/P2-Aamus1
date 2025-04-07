@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const nameForm = document.getElementById("eventName");
     const dateTimeForm = document.getElementById("dateTimeForm");
     const eventDateInput = document.getElementById("eventDate");
     const eventTimeInput = document.getElementById("eventTime");
+    const endTimeInput = document.getElementById("endTime");
+    const tlf_nrInput = document.getElementById("eventTlfNr");
     const bankPåInput = document.getElementById("bankPå");
     const bookingsContainer = document.getElementById("bookingsContainer");
     const formTitle = document.createElement("h3"); // Add a title to indicate edit mode
@@ -11,26 +14,71 @@ document.addEventListener("DOMContentLoaded", () => {
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     let editingIndex = null; // Track the index of the booking being edited
 
+        // Form submit event listener
+        dateTimeForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = nameForm.value;
+            const tlf_nr = tlf_nrInput.value;
+            const endTime = endTimeInput.value;
+            const date = eventDateInput.value;
+            const time = eventTimeInput.value;
+            const bankPå = bankPåInput.checked;
+            //addOrUpdateBooking(date, time, bankPå);
+            saveBookings();
+            name.value = "";
+            tlf_nrInput.value = "";
+            endTimeInput.value = "";
+            eventDateInput.value = "";
+            eventTimeInput.value = "";
+            bankPåInput.checked = false;
+        });
+
+
     // Function to save bookings to localStorage
-    function saveBookings() {
-        localStorage.setItem("bookings", JSON.stringify(bookings));
+    function saveBookings() {        
+        fetch('http://localhost:3000/api/events1', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              title: nameForm.value,
+              event_date: eventDateInput.value,
+              start_time: eventTimeInput.value,
+              end_time: endTimeInput.value,
+              tlf_nr: tlf_nrInput.value,
+              bank_pa: bankPåInput.checked,
+              description: "Discussing the Q2 roadmap"
+            })
+          })
+          .then(response => response.json())
+          .then(data => console.log('Success:', data))
+          .catch(error => console.error('Error:', error));
     }
 
     // Function to render bookings
-    function renderBookings() {
+    async function renderBookings() {
         bookingsContainer.innerHTML = "";
-        bookings.forEach((booking, index) => {
+
+        let responseRaw= await fetch('http://localhost:3000/api/get_events1');
+        let response = await responseRaw.json();
+
+        for (let booking of response) {
+            if (booking.title === "Antonio") {
             const bookingDiv = document.createElement("div");
             bookingDiv.classList.add("booking");
             bookingDiv.innerHTML = `
-                <p><strong>Dato:</strong> ${booking.date}</p>
-                <p><strong>Tid:</strong> ${booking.time}</p>
-                <p><strong>Bank på:</strong> ${booking.bankPå ? "Ja" : "Nej"}</p>
-                <button class="rediger-booking" data-index="${index}">Redigér</button>
-                <button class="slet-booking" data-index="${index}">Slet</button>
+                <p><strong>Navn:</strong> ${booking.title}</p>
+                <p><strong>Dato:</strong> ${booking.event_date.split('T')[0]}</p>
+                <p><strong>Kl:</strong> ${booking.start_time} til ${booking.end_time}</p>
+                <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
+                <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
+                <button class="rediger-booking" data-index="${booking}">Redigér</button>
+                <button class="slet-booking" data-index="${booking}">Slet</button>
             `;
             bookingsContainer.appendChild(bookingDiv);
-        });
+        }}
+        
     }
 
     // Function to add or update a booking
@@ -67,17 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dateTimeForm.classList.add("edit-mode"); // Add edit mode styling
     }
 
-    // Form submit event listener
-    dateTimeForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const date = eventDateInput.value;
-        const time = eventTimeInput.value;
-        const bankPå = bankPåInput.checked;
-        addOrUpdateBooking(date, time, bankPå);
-        eventDateInput.value = "";
-        eventTimeInput.value = "";
-        bankPåInput.checked = false;
-    });
+
 
     // Event delegation for edit and delete buttons
     bookingsContainer.addEventListener("click", (event) => {
