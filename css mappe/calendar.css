@@ -142,7 +142,7 @@ body {
   }
 
   .scrollable-section {
-    height: 435px; /* Set a fixed height */
+    height: 650px; /* Set a fixed height */
     overflow-y: auto; /* Enable vertical scrolling */
     border: 1px solid #ccc; /* Optional: Add a border */
     padding: 10px; /* Optional: Add some padding */

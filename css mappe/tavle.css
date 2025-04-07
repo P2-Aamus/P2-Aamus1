@@ -13,7 +13,7 @@
 
 .notice-board-container h2 {
     font-size: 1.8em;
-    margin-bottom: -3rem;
+    margin-bottom: -03rem;
     text-align: center;
 }
 
@@ -28,10 +28,13 @@
 }
 
 #messageBoard {
+  
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
+    margin-top: 200px;
+
 }
 
 #omJer {
@@ -54,11 +57,13 @@
     color: black; 
     font-size: 1.25rem;
     border: none;
+;
 }
 
 .button1 {
     align-self: flex-start; 
     padding: 5px 10px;
+    
 }
 
 .button2 {
@@ -108,12 +113,11 @@
     margin-top: 3rem;
 }
 
-.posts-container {
+.posts-container 
+{
+
     width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
 
 .form-group {
@@ -129,16 +133,21 @@
     width: 100%;
 }
 
-
+/* Dette button 4 og button 4 hover skal opdateres i den nye samt denne linje i html <button class="button4">Læg op</button> */
 
 .button4 {
     margin: 0 auto;
-    padding: 0.2rem 0.5rem;
-    background-color: #8f8f8f;
-    color: white;
+    padding: 0.8rem 1rem;
+    background-color: #fafafa; /* ny farve */
+    color: rgb(0, 0, 0);
     transition-duration: 300ms;
     border-radius: 5px;
     font-size: 0.75rem; 
+    
+}
+.button4:hover {
+  background-color: #479ed1;
+  cursor: pointer;
 }
 
 .delete-btn {
@@ -152,7 +161,7 @@
 }
 
 .delete-btn:hover {
-    background-color: #464646;
+    background-color: #ae2222;
     color: white;
     transition-duration: 100ms;
     border-radius: 5px;
@@ -212,7 +221,7 @@
    }
   
   .menu__words-1, .menu__words-2, .menu__words-3 {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: 0.01em solid #333;
     border-radius: 1em;
     color: #333;

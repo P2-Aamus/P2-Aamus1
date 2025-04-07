@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify({
         title: postTitle.value,
         content: postContent.value,
-        time: new Date().toLocaleTimeString(),
+        time: new Date().toLocaleTimeString('en-GB'),
         date: new Date().toISOString().slice(0, 10).replace(/-/g, '/'),
       })
     })
@@ -147,3 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 fetch('http://localhost:3000/api/get_opslagstavle').then(response => response.json())
+
+
