@@ -1,0 +1,73 @@
+/* Container til hele form */
+#dateTimeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  #dateTimeForm h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  /* Etiket + input layout */
+  #dateTimeForm label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  #dateTimeForm input[type="text"],
+  #dateTimeForm input[type="date"],
+  #dateTimeForm input[type="time"],
+  #dateTimeForm input[type="number"] {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Grupper felter i kolonner (fx dato/tid/tlf) */
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .form-row .form-column {
+    flex: 1;
+    min-width: 150px;
+  }
+  
+  /* Checkbox */
+  #dateTimeForm input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 0.5rem;
+  }
+  
+  /* Submit knap */
+  #dateTimeForm button[type="submit"] {
+    align-self: flex-start;
+    background-color: #ff3300;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #dateTimeForm button[type="submit"]:hover {
+    background-color: #cecdfb;
+  }
+  

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Function to add a band post
     function addBandPost(type, description, phone, email) {
-      const timestamp = new Date().toLocaleString();
+      const timestamp = new Date().toLocaleString('en-GB');
       bandPosts.push({ type, description, phone, email, timestamp });
       saveBandPosts();
       renderBandPosts();
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
           title: omJer.value,
           tlf_nr: tlfNr.value,
           mail: mail.value,
-          time: new Date().toLocaleTimeString(),
+          time: new Date().toLocaleTimeString('en-GB'),
           date: new Date().toISOString().slice(0, 10).replace(/-/g, '/'),
         })
       })
@@ -91,3 +91,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Make deleteBandPost function globally accessible
     window.deleteBandPost = deleteBandPost; }
   );
+
+  
