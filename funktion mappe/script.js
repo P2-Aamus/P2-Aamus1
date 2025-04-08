@@ -91,6 +91,41 @@ app.get('/api/get_find_band', (req, res) => {
   });
 });
 
+app.get('/api/login', (req, res) => {
+  connection.query('SELECT * FROM login', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+}); 
+
+app.post('/api/login', async (req, res) => {
+  const { login, kodeord } = req.body;
+
+  if (!login || !kodeord) {
+    return res.status(400).json({ error: 'Login and password are required.' });
+  }
+
+  const sql = 'SELECT * FROM login WHERE login = ? AND kodeord = ?';
+  connection.query(sql, [login, kodeord], (err, results) => {
+    if (err) {
+      console.error('Database error during login:', err);
+      return res.status(500).json({ error: 'Database error during login.' });
+    }
+
+    if (results.length > 0) {
+      // User found - login successful
+      res.json({ message: 'Login successful' });
+      // You might want to implement session management or JWT here for persistent login
+    } else {
+      // No matching user found
+      res.status(401).json({ error: 'Invalid login credentials.' }); // 401 Unauthorized
+    }
+  });
+});
 
 app.post('/api/events1', (req, res) => {
   console.log("luder skvinde");
@@ -159,6 +194,9 @@ app.post('/api/signup', (req, res) => {
     res.status(201).json({ message: 'User registered successfully', userId: results.insertId });
   });
 });
+
+
+
 /*
 app.post('/api/signup', (req, res) => {
   console.log("luder skvinde");
