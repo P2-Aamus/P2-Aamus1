@@ -21,8 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         renderBookings();
     });
 
+
         // Form submit event listener
-        dateTimeForm.addEventListener("submit", (event) => {
+        dateTimeForm?.addEventListener("submit", (event) => {
+            console.log("Form submitted");
             event.preventDefault();
             const name = nameForm.value;
             const tlf_nr = tlf_nrInput.value;
@@ -30,8 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const date = eventDateInput.value;
             const time = eventTimeInput.value;
             const bankPå = bankPåInput.checked;
-            //addOrUpdateBooking(date, time, bankPå);
             saveBookings();
+            addOrUpdateBooking(date, time, bankPå);
+            
             name.value = "";
             tlf_nrInput.value = "";
             endTimeInput.value = "";
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to save bookings to localStorage
     function saveBookings() {        
+
         fetch(`http://localhost:3000/api/${chosenLokale}`, {
             method: 'POST',
             headers: {
@@ -56,12 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
               end_time: endTimeInput.value,
               tlf_nr: tlf_nrInput.value,
               bank_pa: bankPåInput.checked,
-              description: "Discussing the Q2 roadmap"
+              description: ""
             })
           })
           .then(response => response.json())
           .then(data => console.log('Success:', data))
           .catch(error => console.error('Error:', error));
+          
     }
 
     // Function to render bookings
