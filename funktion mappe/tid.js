@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nameForm = document.getElementById("eventName");
-    const dateTimeForm = document.getElementById("dateTimeForm");
+    const dateTimeForm = document.getElementById("dateTimeForm1");
     const eventDateInput = document.getElementById("eventDate");
     const eventTimeInput = document.getElementById("eventTime");
     const endTimeInput = document.getElementById("endTime");
@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+
         // Form submit event listener
         dateTimeForm?.addEventListener("submit", (event) => {
-            console.log("Form submitted");
             event.preventDefault();
             const name = nameForm.value;
             const tlf_nr = tlf_nrInput.value;
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const time = eventTimeInput.value;
             const bankPå = bankPåInput.checked;
             saveBookings();
-            addOrUpdateBooking(date, time, bankPå);
-            
+            //addOrUpdateBooking(date, time, bankPå);
+            load();
             name.value = "";
             tlf_nrInput.value = "";
             endTimeInput.value = "";

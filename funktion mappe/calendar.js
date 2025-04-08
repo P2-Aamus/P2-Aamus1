@@ -13,12 +13,12 @@ const weekdays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag',
 const eventSelectInput = document.getElementById("eventSelect");
 
 const nameForm = document.getElementById("eventName");
-const dateTimeForm = document.getElementById("dateTimeForm");
-const eventDateInput = document.getElementById("eventDate");
-const eventTimeInput = document.getElementById("eventTime");
-const endTimeInput = document.getElementById("endTime");
-const tlf_nrInput = document.getElementById("eventTlfNr");
-const bankPåInput = document.getElementById("bankPå");
+const dateTimeForm = document.getElementById("dateTimeForm2");
+const eventDateInput = document.getElementById("eventDate2");
+const eventTimeInput = document.getElementById("eventTime2");
+const endTimeInput = document.getElementById("endTime2");
+const tlf_nrInput = document.getElementById("eventTlfNr2");
+const bankPåInput = document.getElementById("bankPå2");
 
 let chosenLokale = 'events1'; // Default value for chosenLokale
 let selectedWeek = getWeekNumber();
