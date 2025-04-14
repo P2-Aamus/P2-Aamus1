@@ -140,7 +140,6 @@
                 <div class="tid-container" id="one-content" hidden="true">
                   <form id="dateTimeForm1">
                     
-                  
                     <div class="form-column">
                       <label for="eventName">Navn:</label>
                       <input type="text" id="eventName" placeholder="Navn" required>
@@ -176,6 +175,41 @@
                   
                     <button type="submit" id="addTime">Tilføj tid</button>
                   </form>
+
+                  
+                  <form class="form-column" id="fixedTImeForm">
+                    <h3>Fast tid</h3>
+                    <select id="fixedTimeDay">
+                      <option value=1 >Mandag</option>
+                      <option value=2 >Tirsdag</option>
+                      <option value=3 >Onsdag</option>
+                      <option value=4 >Torsdag</option>
+                      <option value=5 >Fredag</option> 
+                      <option value=6 >Lørdag</option>
+                      <option value=7 >Søndag</option>
+                    </select>
+
+                    <div class="form-column">
+                      <label for="startTimeFixed">Starttid:</label>
+                      <input type="time" id="startTimeFixed" name="eventTime" required>
+                    </div>
+
+                    <div class="form-column">
+                      <label for="endTimeFixed">Sluttid:</label>
+                      <input type="time" id="endTimeFixed" name="eventTime" required>
+                    </div>
+
+                    <div class="form-row">
+                      <label>
+                        <input type="checkbox" id="bankPåFixed" name="bankPå"> Bank på
+                      </label>
+                    </div>
+
+                    <button type="submit" id="addFixedTime">Tilføj fast tid</button>
+
+                  </form>
+
+
                   <div id="bookingsContainer"></div>
                   
                 </div>
