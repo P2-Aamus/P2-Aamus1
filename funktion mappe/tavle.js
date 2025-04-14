@@ -147,3 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 fetch('http://localhost:3000/api/get_opslagstavle').then(response => response.json())
+
+
