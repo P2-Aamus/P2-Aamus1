@@ -109,7 +109,7 @@ async function load() {
       }
 
 
-      daySquare.addEventListener('click', () => openModal(dayString));
+      daySquare.addEventListener('click', () => openModal(i));
 
     calendar.appendChild(daySquare);  
     
@@ -241,7 +241,7 @@ function getNext7Days() {
     const year = futureDate.getFullYear();
 
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day+1}/${month}`;
     weekdayElement.appendChild(weekDiv);
   }
 }

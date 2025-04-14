@@ -76,13 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
         let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
         let response = await responseRaw.json();
 
+        console.log(response);
+
         for (let booking of response) {
             if (booking.title === "Antonio") {
             const bookingDiv = document.createElement("div");
             bookingDiv.classList.add("booking");
             bookingDiv.innerHTML = `
                 <p><strong>Navn:</strong> ${booking.title}</p>
-                <p><strong>Dato:</strong> ${booking.event_date.split('T')[0]}</p>
+                <p><strong>Dato:</strong> ${new Date(booking.event_date).toLocaleDateString()}</p>
                 <p><strong>Kl:</strong> ${booking.start_time} til ${booking.end_time}</p>
                 <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
                 <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
