@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         // Form submit event listener
-        dateTimeForm?.addEventListener("submit", (event) => {
+        dateTimeForm?.addEventListener("submit", async (event) => {
             event.preventDefault();
             const name = nameForm.value;
             const tlf_nr = tlf_nrInput.value;
@@ -45,16 +45,62 @@ document.addEventListener("DOMContentLoaded", () => {
             const date = eventDateInput.value;
             const time = eventTimeInput.value;
             const bankPå = bankPåInput.checked;
-            saveBookings();
-            //addOrUpdateBooking(date, time, bankPå);
-            load();
-            name.value = "";
-            tlf_nrInput.value = "";
-            endTimeInput.value = "";
-            eventDateInput.value = "";
-            eventTimeInput.value = "";
-            bankPåInput.checked = false;
-            renderBookings();
+
+            console.log(date, time);
+
+            try {
+                // Fetch existing bookings
+                let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
+                if (!responseRaw.ok) {
+                    console.error("Failed to fetch bookings:", responseRaw.statusText);
+                    alert("Error fetching bookings. Please try again.");
+                    return;
+                }
+
+                let response = await responseRaw.json();
+
+                // Debugging: Log the fetched bookings
+                console.log("Fetched bookings:", response);
+
+                // Check for conflicting bookings
+                for (let booking of response) {
+                    console.log("Checking booking:", booking);
+
+                    // Ensure consistent date format for comparison
+                    const inputDate = new Date(date).toISOString().split('T')[0]; // Format input date as YYYY-MM-DD
+                    let bookingDateObj = new Date(booking.event_date); // Convert booking date to Date object
+
+                    // Shift bookingDate by one day
+                    bookingDateObj.setDate(bookingDateObj.getDate() + 1);
+
+                    const bookingDate = bookingDateObj.toISOString().split('T')[0]; // Format shifted booking date as YYYY-MM-DD
+
+                    console.log("Input date:", inputDate, "Shifted booking date:", bookingDate, "Booking Time:", booking.start_time, "Input Time:", time+":00");
+
+                    if (bookingDate === inputDate && booking.start_time === `${time}:00`) {
+                        alert("Booking already exists at this date and time!");
+                        return; // Stop execution if a conflict is found
+                    }
+                }
+
+                // If no conflicts, proceed with saving the booking
+                await saveBookings();
+                load();
+
+                // Reset form fields
+                nameForm.value = "";
+                tlf_nrInput.value = "";
+                endTimeInput.value = "";
+                eventDateInput.value = "";
+                eventTimeInput.value = "";
+                bankPåInput.checked = false;
+
+                // Re-render bookings
+                renderBookings();
+            } catch (error) {
+                console.error("Error during booking submission:", error);
+                alert("An error occurred. Please try again.");
+            }
         });
 
 

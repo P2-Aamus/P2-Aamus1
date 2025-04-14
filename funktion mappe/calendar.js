@@ -20,7 +20,7 @@ const endTimeInput = document.getElementById("endTime2");
 const tlf_nrInput = document.getElementById("eventTlfNr2");
 const bankPåInput = document.getElementById("bankPå2");
 
-let chosenLokale = 'events1'; // Default value for chosenLokale
+let chosenLokale = ''; // Default value for chosenLokale
 let selectedWeek = getWeekNumber();
 
 
@@ -67,6 +67,8 @@ function openModal(date) {
 }
 
 async function load() {
+
+  hideLokaleOptions();
 
   let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
   let response = await responseRaw.json();
@@ -304,3 +306,58 @@ window.addEventListener("DOMContentLoaded", () => {
   // Scroll til midten
   scrollable.scrollTop = scrollable.scrollHeight / 3;
 });
+
+function hideLokaleOptions(){
+  if (localStorage.getItem("firstLoad") === "false") {
+  if (localStorage.getItem("lokale1") === "true") {
+    chosenLokale = "events1";
+  } else {
+    eventSelectInput.querySelector('option[value="events1"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale2") === "true") {
+    chosenLokale = "events2";
+  } else {
+    eventSelectInput.querySelector('option[value="events2"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale3") === "true") {
+    chosenLokale = "events3";
+  } else {
+    eventSelectInput.querySelector('option[value="events3"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale4") === "true") {
+    chosenLokale = "events4";
+  } else {
+    eventSelectInput.querySelector('option[value="events4"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale5") === "true") {
+    chosenLokale = "events5";
+  } else {
+    eventSelectInput.querySelector('option[value="events5"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale6") === "true") {
+    chosenLokale = "events6";
+  } else {
+    eventSelectInput.querySelector('option[value="events6"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale7") === "true") {
+    chosenLokale = "events7";
+  } else {
+    eventSelectInput.querySelector('option[value="events7"]').hidden = true;
+  }
+
+  if (localStorage.getItem("lokale8") === "true") {
+    chosenLokale = "events8";
+  } else {
+    eventSelectInput.querySelector('option[value="events8"]').hidden = true;
+  }
+}
+eventSelectInput.value = chosenLokale;
+  localStorage.setItem("firstLoad", "true");
+}
+

@@ -34,9 +34,51 @@ document.addEventListener("DOMContentLoaded", () => {
       const userFound = users.some(user => user.login === loginid && user.kodeord === kodeordid);
 
       if (userFound) {
+        localStorage.setItem("firstLoad", "false");
+      
         alert("Login successful!");
         // Redirect to a logged-in page or perform other actions upon successful login
         window.location.href = '/index.html'; // Example redirection
+
+        for (let result of users) {
+          if (result.login === loginid){
+            if (result.lokale1) {
+              localStorage.setItem("lokale1", "true");
+            }
+            if (result.lokale2) {
+              localStorage.setItem("lokale2", "true");
+            }
+            if (result.lokale3) {
+              localStorage.setItem("lokale3", "true");
+            }
+            if (result.lokale4) {
+              localStorage.setItem("lokale4", "true");
+            }
+            if (result.lokale5) {
+              localStorage.setItem("lokale5", "true");
+            }
+            if (result.lokale6) {
+              localStorage.setItem("lokale6", "true");
+            }
+            if (result.lokale7) {
+              localStorage.setItem("lokale7", "true");
+            }
+            if (result.lokale8) {
+              localStorage.setItem("lokale8", "true");
+            }
+          }
+        }
+
+
+
+
+
+
+
+
+
+
+
       } else {
         alert("Invalid login credentials.");
       }
