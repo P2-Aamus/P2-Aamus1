@@ -449,6 +449,43 @@ app.post('/api/faste_tider', (req, res) => {
   });
 });
 
+app.delete('/api/opslagstavle/:id', (req, res) => {
+  const postId = req.params.id;
+  const sql = 'DELETE FROM opslagstavle WHERE id = ?';
+
+  connection.query(sql, [postId], (err, result) => {
+      if (err) {
+          console.error('Error deleting post:', err);
+          return res.status(500).json({ error: 'Database error' });
+      }
+
+      if (result.affectedRows === 0) {
+          // No rows were affected, meaning the post with the given ID was not found
+          return res.status(404).json({ error: 'Post not found' });
+      }
+
+      // Successfully deleted the post
+      res.json({ message: 'Post deleted successfully' });
+  });
+});
+
+app.delete('/api/find_band/:id', (req, res) => {
+  const postId = req.params.id;
+  const sql = 'DELETE FROM find_band WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [postId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${postId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${postId} not found` });
+      }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

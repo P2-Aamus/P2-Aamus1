@@ -19,12 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
     //renderPosts();
   }
 
-  // Function to delete a post
-  function deletePost(index) {
-    posts.splice(index, 1);
-    savePosts();
-    renderPosts();
-  }
+  async function deletePost(postId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/opslagstavle/${postId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Band post with ID ${postId} deleted successfully`);
+            renderPosts();
+        } else {
+            const errorData = await response.json();
+            console.error('Error deleting post:', errorData);
+            alert('Fejl ved sletning af opslag.');
+        }
+    } catch (error) {
+        console.error('Network error while deleting post:', error);
+        alert('Netværksfejl ved sletning af opslag.');
+    }
+}
 
   // Function to save posts to local storage
   async function savePosts() {
@@ -50,10 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to render posts on the message board
   async function renderPosts() {
     messageBoard.innerHTML = "";
+    console.log("messageBoard element:", messageBoard); // Debug
 
+    try {
    let responseRaw= await fetch('http://localhost:3000/api/get_opslagstavle');
    let response = await responseRaw.json();
-    
+   console.log("Fetched band posts:", response);
     
     for (let post of response) {
       const postDiv = document.createElement("div");
@@ -63,11 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
           <p1>${post.content}</p1>
           <small>${new Date(post.date).toLocaleDateString()}</small>
           <small>${post.time}</small>
-          <button class="delete-btn" onclick="window.deletePost(${post})">Slet</button>`;
-
+          <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
+      console.log("Post data:", post)
       messageBoard.prepend(postDiv);
     }
-  }
+
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const postIdToDelete = this.dataset.postId;
+            deletePost(postIdToDelete);
+        });
+    });
+} catch (error) {
+    console.error('Error fetching posts:', error);
+    messageBoard.innerHTML = '<p>Kunne ikke hente opslag.</p>'; // Use bandMessageBoard
+}
+}
 
   
 

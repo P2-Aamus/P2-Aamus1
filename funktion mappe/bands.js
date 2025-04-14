@@ -22,12 +22,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   
-    // Function to delete a band post
-    function deleteBandPost(index) {
-      bandPosts.splice(index, 1);
-      //saveBandPosts();
-      renderBandPosts();
+  async function deletePost(postId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/find_band/${postId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Band post with ID ${postId} deleted successfully`);
+            renderBandPosts();
+        } else {
+            const errorData = await response.json();
+            console.error('Error deleting band post:', errorData);
+            alert('Fejl ved sletning af opslag.');
+        }
+    } catch (error) {
+        console.error('Network error while deleting band post:', error);
+        alert('Netværksfejl ved sletning af opslag.');
     }
+}
   
     // Function to save band posts to local storage
     async function saveBandPosts() {
@@ -61,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function renderBandPosts() {
       bandMessageBoard.innerHTML = "";
 
-
+    try {
       let responseRaw = await fetch('http://localhost:3000/api/get_find_band');
       let response = await responseRaw.json();
 
@@ -76,13 +89,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Mail:</strong> ${post.mail}</p>
             <small>${new Date(post.date).toLocaleDateString()}</small>
             <small>${post.time}</small>
-            <button class="delete-btn" onclick="window.deleteBandPost(${post})">Slet</button>
-        `;
+                <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
         bandMessageBoard.prepend(postDiv);
       }
-    }
 
-  
+      const deleteButtons = document.querySelectorAll('.delete-btn');
+      deleteButtons.forEach(button => {
+          button.addEventListener('click', function() {
+              const postIdToDelete = this.dataset.postId;
+              deletePost(postIdToDelete);
+          });
+      });
+  } catch (error) {
+      console.error('Error fetching posts:', error);
+      bandMessageBoard.innerHTML = '<p>Kunne ikke hente opslag.</p>'; // Use bandMessageBoard
+  }
+}
     // Load existing band posts when page loads
     renderBandPosts();
   
