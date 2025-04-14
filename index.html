@@ -6,6 +6,7 @@
         <title>Aalborg Musikforening</title>
         <link rel="stylesheet" href="css mappe/styles.css">
         <link rel="stylesheet" href="css mappe/calendar.css">
+        <link rel="stylesheet" href="css mappe/tid.css">
         <script src="funktion mappe/script.js"></script>
 
     </head>
@@ -32,9 +33,9 @@
 
 
                 <div>
-                    <button id="backButton">🔙</button>
-                    <button id="todayButton">🖕</button>
-                    <button id="nextButton">🔜</button>
+                    <button id="backButton">←</button>
+                    <button id="todayButton">Uge</button>
+                    <button id="nextButton">→</button>
                 </div>
             </div>
 
@@ -173,12 +174,13 @@
                       </label>
                     </div>
                   
-                    <button type="submit" id="addTime">Tilføj tid</button>
+                    <button type="submit" id="addTime" class="fasttid">Book</button>
                   </form>
 
                   
                   <form class="form-column" id="fixedTImeForm">
-                    <h3>Fast tid</h3>
+                    
+                    <h3> Fast tid</h3>
                     <select id="fixedTimeDay">
                       <option value=1 >Mandag</option>
                       <option value=2 >Tirsdag</option>
@@ -205,11 +207,11 @@
                       </label>
                     </div>
 
-                    <button type="submit" id="addFixedTime">Tilføj fast tid</button>
+                    <button type="submit" id="addFixedTime">Book</button>
 
                   </form>
-
-
+<h3 class="dinetider">   Dine tider</h3>
+                  <div class="scrollable-section" id="tiderscroll">
                   <div id="bookingsContainer"></div>
                   
                 </div>

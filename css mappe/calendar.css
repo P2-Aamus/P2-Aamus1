@@ -2,8 +2,8 @@ body {
     display: flex;
     margin-top: 50px;
     justify-content: center;
-    background-color: #FFFCFF;
-    font-family: 'comic Sans MS';
+    background-color: #f6f4f6;
+    font-family: 'Segoe UI', sans-serif;
   }
   button {
     width: 75px;
@@ -13,9 +13,14 @@ body {
     outline: none;
     padding: 5px;
     border-radius: 5px;
-    color: white;
+    color: rgb(0, 0, 0);
+    background-color: #04bcff;
     font-size: 20px;
+    margin-top: 5  px;
+   
+
   }
+  
   
   #header {
     padding: 10px;

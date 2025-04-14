@@ -63,7 +63,7 @@
   
 .button1:hover {
     background-color: #008CBA;
-    color: white;
+    color: rgb(255, 255, 255);
     transition-duration: 300ms;
     border-radius: 25px;
     padding: 5px 10px;
