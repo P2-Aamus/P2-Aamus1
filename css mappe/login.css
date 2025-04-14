@@ -236,9 +236,8 @@ button[type="submit1"]:hover {
   }
 
 
-  
-  
-  @media (min-width: 2000px) {
+
+  @media (min-width: 2200px) and (max-width: 4000px) {
     .form-container,
     .login-form,
     .signup-form,
@@ -248,26 +247,68 @@ button[type="submit1"]:hover {
     input[type="password1"],
     button[type="submit"],
     button[type="submit1"] {
-      width: 20vw; 
+      width: 25vw; 
+   
     }
   
     .logo-container img {
-      width: 150px;
-      height: 150px;
+      width: 550px;
+      height: 550px;
+    }
+    .logo-area {
+        zoom: 150%;
     }
   
     h1, .form-heading {
-      font-size: 2.5em;
-      margin-top: 1rem;
+      font-size: 3em;
     }
   
     h2 {
-      font-size: 2em;
-      margin-bottom: 2rem;
+      font-size: 4em;
+      margin-bottom: 4rem;
     }
   
     body {
-      padding: 2rem;
+      padding: 4rem;
+    }
+  }
+  
+  
+  
+  @media (min-width: 4000px) {
+    .form-container,
+    .login-form,
+    .signup-form,
+    input[type="text"],
+    input[type="password"],
+    input[type="text1"],
+    input[type="password1"],
+    button[type="submit"],
+    button[type="submit1"] {
+      width: 25vw; 
+      font-size: 1.5rem;
+    }
+  
+    .logo-container img {
+      width: 550px;
+      height: 550px;
+    }
+    .logo-area {
+        zoom: 200%;
+    }
+  
+    h1, .form-heading {
+      font-size: 5em;
+      margin-top: 2rem;
+    }
+  
+    h2 {
+      font-size: 4em;
+      margin-bottom: 4rem;
+    }
+  
+    body {
+      padding: 4rem;
     }
   }
   
