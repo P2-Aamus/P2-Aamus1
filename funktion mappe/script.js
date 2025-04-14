@@ -158,6 +158,17 @@ app.get('/api/get_find_band', (req, res) => {
   });
 });
 
+app.get('/api/get_faste_tider', (req, res) => {
+  connection.query('SELECT * FROM faste_tider', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 
 //APIs to post data to the database
 app.post('/api/events1', (req, res) => {
@@ -337,6 +348,23 @@ app.post('/api/find_band', (req, res) => {
   console.log("det her sender vi", req.body);
   const sql = 'INSERT INTO find_band (soeger_band, soeger_medlemmer, title, tlf_nr, mail, time, date) VALUES (?, ?, ?, ?, ?, ?, ?)';
   connection.query(sql, [soeger_band, soeger_medlemmer, title, tlf_nr, mail, time, date], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/faste_tider', (req, res) => {
+  console.log("luder skvinde");
+  const { title, lokale, day, start_time, end_time} = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO faste_tider (title, lokale, day, start_time, end_time) VALUES (?, ?, ?, ?, ?)';
+  connection.query(sql, [title, lokale, day, start_time, end_time], (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: 'database error'})

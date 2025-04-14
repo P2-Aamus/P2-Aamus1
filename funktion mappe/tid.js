@@ -13,6 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
     formTitle.textContent = "Tilføj tid";
     dateTimeForm.prepend(formTitle);
 
+
+    //fixed times init
+    let fixedTimeForm = document.getElementById("fixedTimeForm");
+    let eventNameFixedInput = document.getElementById("eventNameFixed");
+    let fixedTimeDayDropdown = document.getElementById("fixedTimeDay");
+    let startTimeFixedInput = document.getElementById("startTimeFixed");
+    let endTimeFixedInput = document.getElementById("endTimeFixed");
+    let bankPåFixedInput = document.getElementById("bankPåFixed");
+    
+
+
+
+
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     let editingIndex = null; // Track the index of the booking being edited
 
@@ -92,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             bookingsContainer.appendChild(bookingDiv);
         }}
-        
     }
 
     // Function to add or update a booking
@@ -130,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
+    //DELETE??
     // Event delegation for edit and delete buttons
     bookingsContainer?.addEventListener("click", (event) => {
         if (event.target.classList.contains("slet-booking")) {
@@ -141,6 +153,45 @@ document.addEventListener("DOMContentLoaded", () => {
             editBooking(index);
         }
     });
+
+    
+    //Fixed Times
+
+    fixedTimeForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = eventNameFixedInput.value;
+        const startTime = startTimeFixedInput.value;
+        const endTime = endTimeFixedInput.value;
+        const bankPå = bankPåFixedInput.checked;
+        const day = fixedTimeDayDropdown.value;
+        
+
+        // Save the fixed time booking
+        saveFixedTimeBooking();
+        fixedTimeForm.reset();
+    });
+
+    // Function to save fixed time booking
+    async function saveFixedTimeBooking() {
+        await fetch(`http://localhost:3000/api/faste_tider`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              title: eventNameFixedInput.value,
+              lokale: chosenLokale,
+              day: fixedTimeDayDropdown.value,
+              start_time: startTimeFixedInput.value,
+              end_time: endTimeFixedInput.value,
+              bank_pa: bankPåFixedInput.checked
+            })
+          })
+          .then(response => response.json())
+          .then(load)
+          .catch(error => console.error('Error:', error));
+    }
+
 
     // Load bookings on page load
     renderBookings();

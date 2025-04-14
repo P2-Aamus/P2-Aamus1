@@ -68,9 +68,12 @@ function openModal(date) {
 
 async function load() {
 
-  let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
+  let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
   let response = await responseRaw.json();
 
+
+  let responseRaw_fixedTimes = await fetch(`http://localhost:3000/api/get_faste_tider`);
+  let response_fixedTimes = await responseRaw_fixedTimes.json();
 
   getNext7Days();
   const dt = new Date();
@@ -143,8 +146,32 @@ async function load() {
           }
         }
       }
-    }
+    }    
+
+    //Populate calendar with events
+    for (let events of response_fixedTimes) {
+      let day = events.day;
+      let dayOfWeek = 0;
+
+
+      for (let hour = parseInt(events.start_time.split(':')[0]); hour < parseInt(events.end_time.split(':')[0]); hour++) {
+        const eventSlot = (hour * 7) + (day - 1) + 1; // Column shift: Mon = 0 → +1 aligns with i
+      
+        if (i === eventSlot && events.lokale === chosenLokale) {
+          const eventDiv = document.createElement('div');
+          eventDiv.innerText = events.title;
+          eventDiv.classList.add('event');
+          daySquare.appendChild(eventDiv);
+
+          if (events.title !== "Antonio") {
+            eventDiv.style.backgroundColor = "red";
+          }
+        }
+      }
+    }    
   }
+
+
 
   
 }
