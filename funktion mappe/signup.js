@@ -24,7 +24,36 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(res => res.json())
       .then(data => {
-        alert("User registered successfully!");
+        // Create a modal popup for success message
+        const modal = document.createElement("div");
+        modal.style.position = "fixed";
+        modal.style.top = "50%";
+        modal.style.left = "50%";
+        modal.style.transform = "translate(-50%, -50%)";
+        modal.style.backgroundColor = "#fff";
+        modal.style.padding = "20px";
+        modal.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+        modal.style.borderRadius = "8px";
+        modal.style.zIndex = "1000";
+        modal.innerHTML = `
+          <p>Brugeren er oprettet, gå videre til login!</p>
+          <button id="closeModal" style="margin-top: 10px; padding: 5px 10px;">Login</button>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Add event listener to close the modal and redirect to login
+        document.getElementById("closeModal").addEventListener("click", () => {
+          modal.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          modal.style.opacity = "0";
+          modal.style.transform = "scale(0.5)";
+
+          // Fade out and scale down the modal before redirecting
+          setTimeout(() => {
+            modal.remove();
+            window.location.href = "/Login.html"; // Redirect to the login page
+          }, 500); // Match the transition duration
+        });
         console.log(data);
         loginInput.value = "";
         kodeordInput.value = "";
