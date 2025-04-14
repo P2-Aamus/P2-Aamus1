@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Function to save posts to local storage
-  function savePosts() {
+  async function savePosts() {
     messageBoard.innerHTML = "";
-    fetch('http://localhost:3000/api/opslagstavle', {
+    await fetch('http://localhost:3000/api/opslagstavle', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,14 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify({
         title: postTitle.value,
         content: postContent.value,
-        time: new Date().toLocaleTimeString(),
+        time: new Date().toLocaleTimeString('en-GB'),
         date: new Date().toISOString().slice(0, 10).replace(/-/g, '/'),
       })
     })
     .then(response => response.json())
-    .then(data => console.log('Success:', data))
+    .then(renderPosts)
     .catch(error => console.error('Error:', error));
-    renderPosts();
+
   }
 
   // Function to render posts on the message board
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       postDiv.innerHTML = `
           <h3>${post.title}</h3> 
           <p1>${post.content}</p1>
-          <small>${post.date.split('T')[0]}</small>
+          <small>${new Date(post.date).toLocaleDateString()}</small>
           <small>${post.time}</small>
           <button class="delete-btn" onclick="window.deletePost(${post})">Slet</button>`;
 
@@ -147,3 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 fetch('http://localhost:3000/api/get_opslagstavle').then(response => response.json())
+
+

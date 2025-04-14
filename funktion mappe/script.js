@@ -47,8 +47,86 @@ connection.connect((err) => {
   console.log('Connected to MySQL');
 });
 
+//APIs to get data from the database
 app.get('/api/get_events1', (req, res) => {
   connection.query('SELECT * FROM events1', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events2', (req, res) => {
+  connection.query('SELECT * FROM events2', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events3', (req, res) => {
+  connection.query('SELECT * FROM events3', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events4', (req, res) => {
+  connection.query('SELECT * FROM events4', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events5', (req, res) => {
+  connection.query('SELECT * FROM events5', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events6', (req, res) => {
+  connection.query('SELECT * FROM events6', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events7', (req, res) => {
+  connection.query('SELECT * FROM events7', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/get_events8', (req, res) => {
+  connection.query('SELECT * FROM events8', (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'database error'})
@@ -100,6 +178,17 @@ app.get('/api/login', (req, res) => {
       res.json(results);
     }
   });
+});
+
+app.get('/api/get_faste_tider', (req, res) => {
+  connection.query('SELECT * FROM faste_tider', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json(results);
+    }
+  });
 }); 
 
 app.post('/api/login', async (req, res) => {
@@ -127,12 +216,150 @@ app.post('/api/login', async (req, res) => {
   });
 });
 
+
+//APIs to post data to the database
 app.post('/api/events1', (req, res) => {
   console.log("luder skvinde");
   const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
 
   console.log("det her sender vi", req.body);
   const sql = 'INSERT INTO events1 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events2', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events2 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events2', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events2 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events3', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events3 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events4', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events4 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events5', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events5 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events6', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events6 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events7', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events7 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: 'database error'})
+    } else {
+      res.json({ message: 'event inserted', event_title: results.title});
+      console.log(results);
+    }
+  });
+});
+
+app.post('/api/events8', (req, res) => {
+  console.log("luder skvinde");
+  const { title, event_date, start_time, end_time, tlf_nr, bank_pa, description } = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO events8 (title, event_date, start_time, end_time, tlf_nr, bank_pa, description) VALUES (?, ?, ?, ?, ?, ?, ?)';
   connection.query(sql, [title, event_date, start_time, end_time, tlf_nr, bank_pa, description], (err, results) => {
     if (err) {
       console.log(err);
@@ -204,6 +431,14 @@ app.post('/api/signup', (req, res) => {
   console.log("det her sender vi", req.body);
   const sql = 'INSERT INTO login (login, kodeord) VALUES (?, ?)';
   connection.query(sql, [login, kodeord], (err, results) => {
+    */
+app.post('/api/faste_tider', (req, res) => {
+  console.log("luder skvinde");
+  const { title, lokale, day, start_time, end_time} = req.body
+
+  console.log("det her sender vi", req.body);
+  const sql = 'INSERT INTO faste_tider (title, lokale, day, start_time, end_time) VALUES (?, ?, ?, ?, ?)';
+  connection.query(sql, [title, lokale, day, start_time, end_time], (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: 'database error'})
@@ -213,7 +448,8 @@ app.post('/api/signup', (req, res) => {
     }
   });
 });
-*/
+
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

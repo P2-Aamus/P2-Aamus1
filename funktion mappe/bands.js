@@ -8,14 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const mail = document.getElementById("mail");
   
     let bandPosts = JSON.parse(localStorage.getItem("bandPosts")) || [];
-  
-    // Function to add a band post
-    function addBandPost(type, description, phone, email) {
-      const timestamp = new Date().toLocaleString();
-      bandPosts.push({ type, description, phone, email, timestamp });
+
+    bandForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
       saveBandPosts();
-      renderBandPosts();
-    }
+      radioSøgerBand.selected = false;
+      radioSøgerMedlem.selected = false;
+      omJer.value = "";
+      tlfNr.value = "";
+      mail.value = "";
+      //renderBandPosts();
+      
+  });
+
   
     // Function to delete a band post
     function deleteBandPost(index) {
@@ -25,27 +30,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Function to save band posts to local storage
-    function saveBandPosts() {
+    async function saveBandPosts() {
       localStorage.setItem("bandPosts", JSON.stringify(bandPosts));
 
-      fetch('http://localhost:3000/api/find_band', {
+      await fetch('http://localhost:3000/api/find_band', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          soeger_band: radioSøgerBand ? true : false,
-          soeger_medlemmer: radioSøgerMedlem? true : false,
+          soeger_band: radioSøgerBand.checked,
+          soeger_medlemmer: radioSøgerMedlem.checked,
           title: omJer.value,
           tlf_nr: tlfNr.value,
           mail: mail.value,
-          time: new Date().toLocaleTimeString(),
+          time: new Date().toLocaleTimeString('en-GB'),
           date: new Date().toISOString().slice(0, 10).replace(/-/g, '/'),
         })
       })
       .then(response => response.json())
-      .then(data => console.log('Success:', data))
+      .then(renderBandPosts)
       .catch(error => console.error('Error:', error));
+
+        
     
     }
     
@@ -55,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
       bandMessageBoard.innerHTML = "";
 
 
-      let responseRaw= await fetch('http://localhost:3000/api/get_find_band');
+      let responseRaw = await fetch('http://localhost:3000/api/get_find_band');
       let response = await responseRaw.json();
 
 
@@ -67,23 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <p>${post.title}</p>
             <p><strong>Tlf:</strong> ${post.tlf_nr}</p>
             <p><strong>Mail:</strong> ${post.mail}</p>
-            <small>${post.date.split('T')[0]}</small>
+            <small>${new Date(post.date).toLocaleDateString()}</small>
             <small>${post.time}</small>
             <button class="delete-btn" onclick="window.deleteBandPost(${post})">Slet</button>
         `;
         bandMessageBoard.prepend(postDiv);
       }
     }
-  
-    // Form submit event listener
-    bandForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const type = radioSøgerBand.checked ? "SØGER" : "LEDER";
-      addBandPost(type, omJer.value, tlfNr.value, mail.value);
-      omJer.value = "";
-      tlfNr.value = "";
-      mail.value = "";
-    });
+
   
     // Load existing band posts when page loads
     renderBandPosts();
@@ -91,3 +89,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Make deleteBandPost function globally accessible
     window.deleteBandPost = deleteBandPost; }
   );
+
+  

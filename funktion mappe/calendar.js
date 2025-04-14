@@ -10,7 +10,45 @@ const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdayElement = document.getElementById('weekdays');
 let weekDiv = null;
 const weekdays = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+const eventSelectInput = document.getElementById("eventSelect");
 
+const nameForm = document.getElementById("eventName");
+const dateTimeForm = document.getElementById("dateTimeForm2");
+const eventDateInput = document.getElementById("eventDate2");
+const eventTimeInput = document.getElementById("eventTime2");
+const endTimeInput = document.getElementById("endTime2");
+const tlf_nrInput = document.getElementById("eventTlfNr2");
+const bankPåInput = document.getElementById("bankPå2");
+
+let chosenLokale = 'events1'; // Default value for chosenLokale
+let selectedWeek = getWeekNumber();
+
+
+
+eventSelectInput.addEventListener("change", (event) => {
+ chosenLokale = event.target.value;
+ load();
+
+});
+
+dateTimeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const name = nameForm.value;
+  const tlf_nr = tlf_nrInput.value;
+  const endTime = endTimeInput.value;
+  const date = eventDateInput.value;
+  const time = eventTimeInput.value;
+  const bankPå = bankPåInput.checked;
+  //addOrUpdateBooking(date, time, bankPå);
+  saveBookings();
+  name.value = "";
+  tlf_nrInput.value = "";
+  endTimeInput.value = "";
+  eventDateInput.value = "";
+  eventTimeInput.value = "";
+  bankPåInput.checked = false;
+  closeModal();
+});
 
 
 function openModal(date) {
@@ -28,7 +66,14 @@ function openModal(date) {
   backDrop.style.display = 'block';
 }
 
-function load() {
+async function load() {
+
+  let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
+  let response = await responseRaw.json();
+
+
+  let responseRaw_fixedTimes = await fetch(`http://localhost:3000/api/get_faste_tider`);
+  let response_fixedTimes = await responseRaw_fixedTimes.json();
 
   getNext7Days();
   const dt = new Date();
@@ -37,8 +82,9 @@ function load() {
     dt.setMonth(new Date().getMonth() + nav);
   }
  
-
+  const hour = new Date().getHours(); // e.g., 14
   const day = dt.getDate();
+  const dayOfWeek = dt.getDay();
   const weekday = dt.getDay();
   const month = dt.getMonth();
   const year = dt.getFullYear();
@@ -46,50 +92,88 @@ function load() {
   const firstDayOfMonth = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   
-  const dateString = firstDayOfMonth.toLocaleDateString('da-dk', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-  });
-  const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+
+
 
   document.getElementById('monthDisplay').innerText = 
-    `Uge ${getWeekNumber() + nav}`;
+    `Uge ${selectedWeek + nav}`;
 
   
     calendar.innerHTML = '';
 
 
-
-  for(let i = 1; i < 169; i++) {
+  for(let i = 1; i <= 168; i++) {
     const daySquare = document.createElement('div');
     daySquare.classList.add('day');
 
-    const dayString = `${month + 1}/${i - paddingDays}/${year}`;
-
-    if (i > paddingDays) {
-      daySquare.innerText = '';
-      const eventForDay = events.find(e => e.date === dayString);
-
-      if (i - paddingDays === day -1 && nav === 0) {
+  
+      if (i === (dayOfWeek) * (7 * hour+1) && nav === 0) {
         daySquare.id = 'currentDay';
       }
+      
+      daySquare.addEventListener('click', () => openModal(i));
 
-      if (eventForDay) {
-        const eventDiv = document.createElement('div');
-        eventDiv.classList.add('event');
-        eventDiv.innerText = eventForDay.title;
-        daySquare.appendChild(eventDiv);
+    calendar.appendChild(daySquare);  
+    
+    //Populate calendar with events
+    for (let events of response) {
+      let date = new Date(events.event_date);
+      let dayOfWeek = date.getDay();
+      let eventBlock = (dayOfWeek -2 ) + (7 * parseInt(events.start_time.split(':')[0]) + 1);
+      let eventEndBlock = (dayOfWeek - 2) + (7 * parseInt(events.end_time.split(':')[0]) - 6);
+
+      //calculate week of event
+      // Calculate the ISO week number for the event date
+      const tempDate = new Date(events.event_date);
+      tempDate.setHours(0, 0, 0, 0);
+      tempDate.setDate(tempDate.getDate() + 3 - ((tempDate.getDay() + 6) % 7)); // Adjust to Thursday
+      const week1 = new Date(tempDate.getFullYear(), 0, 4);
+      week1.setDate(week1.getDate() - ((week1.getDay() + 3) % 7));
+      const eventWeekNumber = 1 + Math.round(((tempDate - week1) / 86400000 - 3) / 7);
+
+      //console.log(eventBlock);
+      for (let hour = parseInt(events.start_time.split(':')[0]); hour < parseInt(events.end_time.split(':')[0]); hour++) {
+        const eventSlot = (hour * 7) + (dayOfWeek - 1) + 1; // Column shift: Mon = 0 → +1 aligns with i
+      
+        if (i === eventSlot && eventWeekNumber === selectedWeek + nav) {
+          const eventDiv = document.createElement('div');
+          eventDiv.innerText = events.title;
+          eventDiv.classList.add('event');
+          daySquare.appendChild(eventDiv);
+
+          if (events.title !== "Antonio") {
+            eventDiv.style.backgroundColor = "red";
+          }
+        }
       }
+    }    
 
-      daySquare.addEventListener('click', () => openModal(dayString));
-    } else {
-      daySquare.classList.add('padding');
-    }
+    //Populate calendar with events
+    for (let events of response_fixedTimes) {
+      let day = events.day;
+      let dayOfWeek = 0;
 
-    calendar.appendChild(daySquare);    
+
+      for (let hour = parseInt(events.start_time.split(':')[0]); hour < parseInt(events.end_time.split(':')[0]); hour++) {
+        const eventSlot = (hour * 7) + (day - 1) + 1; // Column shift: Mon = 0 → +1 aligns with i
+      
+        if (i === eventSlot && events.lokale === chosenLokale) {
+          const eventDiv = document.createElement('div');
+          eventDiv.innerText = events.title;
+          eventDiv.classList.add('event');
+          daySquare.appendChild(eventDiv);
+
+          if (events.title !== "Antonio") {
+            eventDiv.style.backgroundColor = "red";
+          }
+        }
+      }
+    }    
   }
+
+
+
+  
 }
 
 function closeModal() {
@@ -127,12 +211,20 @@ function deleteEvent() {
 function initButtons() {
   document.getElementById('nextButton').addEventListener('click', () => {
     nav++;
+    selectedWeek + nav;
     load();
     
   });
 
   document.getElementById('backButton').addEventListener('click', () => {
     nav--;
+    selectedWeek + nav;
+    load();
+  });
+
+  document.getElementById('todayButton').addEventListener('click', () => {
+    nav = 0;
+    selectedWeek = getWeekNumber();
     load();
   });
 
@@ -179,12 +271,24 @@ function getNext7Days() {
     const day = futureDate.getDate();
     const month = futureDate.getMonth() + 1; // Months are 0-based
     const year = futureDate.getFullYear();
-
+    
+    let finalFutureDate = `${day}/${month}/${year}`;
+    let currentDate = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
+    
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day+1}/${month}`;
+    
+ //doesn't work yet
+    if (finalFutureDate === currentDate) {
+      weekDiv.className = "current-Weekday"
+      //console.log("today", today);
+    }
     weekdayElement.appendChild(weekDiv);
   }
-}
+  
+  }
+
+
   //if (currentDate <= daysInMonth) { 
     //return `${currentDate} ${currentMonth}`;
   //} else {

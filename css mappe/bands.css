@@ -1,0 +1,136 @@
+#omJer {
+      height: 5rem;
+     a
+  }
+  
+  #tlfNr {
+      height: 2rem;
+  }
+  
+  #mail {
+      height: 2rem;
+  }
+
+  .band-container {
+    background-color: #fdfdff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .band-container h {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  
+  .band-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .band-container input[type="text"],
+  .band-container input[type="number"],
+  .band-container input[type="email"],
+  .band-container input[type="radio"] + label {
+    font-size: 0.9rem;
+  }
+  
+  .band-container input[type="text"],
+  .band-container input[type="number"],
+  .band-container input[type="email"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .band-container input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .band-container label {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  /*læg op*/
+  .band-container button[type="submit"] {
+    padding: 10px 16px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+  }
+  
+  .band-container button[type="submit"]:hover {
+    background-color: #4a47d1;
+  }
+
+  .notice-board .band-post {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .band-post h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .band-post p {
+    margin: 0.5rem 0;
+  }
+  
+  .band-post .timestamp {
+    font-size: 0.8rem;
+    color: #777;
+  }
+  
+  .band-post button.delete-btn {
+    float: right;
+    background-color: #c63c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    
+  }
+  
+  .band-post button.delete-btn:hover {
+    background-color: #a02e2e;
+  }
+  
+
+  .band-intro {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 1200;
+    color: #000000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    ;
+  }
+  
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 4rem;
+  }

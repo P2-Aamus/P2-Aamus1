@@ -19,17 +19,21 @@
                 
                 <div id="monthDisplay"></div>
                 
-                <select>
-                    <option>Lokale 1</option>
-                    <option>Lokale 2</option>
-                    <option>Lokale 3</option>
-                    <option>Lokale 4</option>
-                    <option>Lokale 5</option>
+                <select id="eventSelect">
+                    <option value="events1">Lokale 1</option>
+                    <option value="events2">Lokale 2</option>
+                    <option value="events3">Lokale 3</option>
+                    <option value="events4">Lokale 4</option>
+                    <option value="events5">Lokale 5</option>
+                    <option value="events6">Lokale 6</option>
+                    <option value="events7">Lokale 7</option>
+                    <option value="events8">Lokale 8</option>
                 </select>
 
 
                 <div>
                     <button id="backButton">🔙</button>
+                    <button id="todayButton">🖕</button>
                     <button id="nextButton">🔜</button>
                 </div>
             </div>
@@ -74,6 +78,23 @@
             <h2>New Event</h2>
       
             <input id="eventTitleInput" placeholder="Event Title" />
+
+            <form id="dateTimeForm2">
+                <label for="eventName">Navn:</label>
+                <input type="text" id="eventName2" placeholder="Navn" required>
+                <label for="eventDate">Dato:</label>
+                <input type="date" id="eventDate2" name="eventDate" required>
+                <label for="eventTime">Tid:</label>
+                <input type="time" id="eventTime2" name="eventTime" required>
+                <label for="endTime">Slut tid:</label>
+                <input type="time" id="endTime2" name="endTime" required>
+                <label for="eventTlfNr">Tlf Nr.:</label>
+                <input type="number" id="eventTlfNr2" placeholder="Tlf Nr." required>
+                <label>   
+                <input type="checkbox" id="bankPå2" name="bankPå"> Bank på
+                </label>
+                <button type="submit">Tilføj tid</button>
+            </form>
       
             <button id="saveButton">Save</button>
             <button id="cancelButton">Cancel</button>
@@ -110,55 +131,119 @@
 
                 <div class="container">
                     <div class="button-container">
-                        <button class="button button1" id="noticeBoardButton">Opslagstavle</button>
-                        <button class="button button2" id="dineTiderButton">Dine tider</button>
-                        <button class="button button3" id="findBandsButton">Find band</button>  
+                        <button class="button button1" id="noticeBoardButton">Info Tavle</button>
+                        <button class="button button2" id="dineTiderButton">Dine Tider</button>
+                        <button class="button button3" id="findBandsButton">Find Band</button>  
                     </div>
                 </div>
             
                 <div class="tid-container" id="one-content" hidden="true">
-                    <form id="dateTimeForm">
-                        <label for="eventName">Navn:</label>
-                        <input type="text" id="eventName" placeholder="Navn" required>
+                  <form id="dateTimeForm1">
+                    
+                    <div class="form-column">
+                      <label for="eventName">Navn:</label>
+                      <input type="text" id="eventName" placeholder="Navn" required>
+                    </div>
+                  
+                    <div class="form-row">
+                      <div class="form-column">
                         <label for="eventDate">Dato:</label>
                         <input type="date" id="eventDate" name="eventDate" required>
-                        <label for="eventTime">Tid:</label>
+                      </div>
+                  
+                      <div class="form-column">
+                        <label for="eventTime">Starttid:</label>
                         <input type="time" id="eventTime" name="eventTime" required>
-                        <label for="endTime">Slut tid:</label>
+                      </div>
+                  
+                      <div class="form-column">
+                        <label for="endTime">Sluttid:</label>
                         <input type="time" id="endTime" name="endTime" required>
-                        <label for="eventTlfNr">Tlf Nr.:</label>
-                        <input type="number" id="eventTlfNr" placeholder="Tlf Nr." required>
-                        <label>   
+                      </div>
+                    </div>
+                  
+                    <div class="form-column">
+                      <label for="eventTlfNr">Tlf Nr.:</label>
+                      <input type="number" id="eventTlfNr" placeholder="Tlf Nr." required>
+                    </div>
+                  
+                    <div class="form-row">
+                      <label>
                         <input type="checkbox" id="bankPå" name="bankPå"> Bank på
-                        </label>
-                        <button type="submit">Tilføj tid</button>
-                    </form>
-                    <div id="bookingsContainer"></div>
+                      </label>
+                    </div>
+                  
+                    <button type="submit" id="addTime">Tilføj tid</button>
+                  </form>
+
+                  
+                  <form class="form-column" id="fixedTimeForm">
+                    <h3>Fast tid</h3>
+
+                    <div class="form-column">
+                      <label for="eventName">Navn:</label>
+                      <input type="text" id="eventNameFixed" placeholder="Navn" required>
+                    </div>
+
+                    <select id="fixedTimeDay">
+                      <option value=1 >Mandag</option>
+                      <option value=2 >Tirsdag</option>
+                      <option value=3 >Onsdag</option>
+                      <option value=4 >Torsdag</option>
+                      <option value=5 >Fredag</option> 
+                      <option value=6 >Lørdag</option>
+                      <option value=7 >Søndag</option>
+                    </select>
+
+                    <div class="form-column">
+                      <label for="startTimeFixed">Starttid:</label>
+                      <input type="time" id="startTimeFixed" name="eventTime" required>
+                    </div>
+
+                    <div class="form-column">
+                      <label for="endTimeFixed">Sluttid:</label>
+                      <input type="time" id="endTimeFixed" name="eventTime" required>
+                    </div>
+
+                    <div class="form-row">
+                      <label>
+                        <input type="checkbox" id="bankPåFixed" name="bankPå"> Bank på
+                      </label>
+                    </div>
+
+                    <button type="submit" id="addFixedTime">Tilføj fast tid</button>
+
+                  </form>
+
+
+                  <div id="bookingsContainer"></div>
+                  
                 </div>
-                
 
                 <div class="band-container" id="three-content" hidden="true">
-                    <h>Find et band eller nye medlemmer til jeres band!</h>
-                    <!--
-                    <ul class="menu">
-                        <li class="menu_blocks">
-                        <a id="findBandButton"></a>	
-                        <a id="three-content" ></a>
-                        </li>
-                    </ul>
-                    -->
-                    <form id="bandForm">
-                        <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER">
-                        <label for="søger">Søger efter band</label><br>
-                        <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER">
-                        <label for="leder">Søger efter medlem</label><br>
-                        <input type="text" id="omJer" name="omJer" placeholder="Om jer/Om dig" required>
-                        <input type="text" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
-                        <input type="text" id="mail" name="mail" placeholder="Mail" required>
-                        <button type="submit">Læg op</button>
-                        <div id="bandMessageBoard" class="notice-board"></div>
+                    <form id="bandForm" class="band-form">
+                      
+                      <h2 class="band-intro">Find et band eller nye medlemmer til jeres band!</h2>
+                  
+                      <div class="radio-group">
+                        <label>
+                          <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER"> Søger efter band
+                        </label>
+                        <label>
+                          <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER"> Søger efter medlem
+                        </label>
+                      </div>
+                  
+                      <input type="text" id="omJer" name="omJer" placeholder="Om jer / Om dig" required>
+                      <input type="number" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
+                      <input type="email" id="mail" name="mail" placeholder="Mail" required>
+                  
+                      <button type="submit" class="submit-btn">Læg op</button>
+                  
+                      <div id="bandMessageBoard" class="notice-board"></div>
                     </form>
-                </div>
+                  </div>
+                  
 
                
 
@@ -182,6 +267,7 @@
                 </div>
                     <!---->
                 <div class="posts-container" >
+                    
                     <form id="postForm">
                         <div class="form-group">
                             <input type="text" id="postTitle" placeholder="Titel" required>
@@ -189,8 +275,9 @@
                         <div class="form-group">
                             <textarea id="postContent" placeholder="Skriv dit oplæg..." required class="post-textarea"></textarea>
                         </div>
-                        <button type="button button4">Læg op</button>
+                        <button class="button4">Læg op</button>
                     </form>
+                   
                     <div id="messageBoard" class="notice-board"></div>
                 </div>
 

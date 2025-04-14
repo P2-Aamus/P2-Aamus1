@@ -1,21 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
     const nameForm = document.getElementById("eventName");
-    const dateTimeForm = document.getElementById("dateTimeForm");
+    const dateTimeForm = document.getElementById("dateTimeForm1");
     const eventDateInput = document.getElementById("eventDate");
     const eventTimeInput = document.getElementById("eventTime");
     const endTimeInput = document.getElementById("endTime");
     const tlf_nrInput = document.getElementById("eventTlfNr");
     const bankPåInput = document.getElementById("bankPå");
     const bookingsContainer = document.getElementById("bookingsContainer");
+    const eventSelectInput = document.getElementById("eventSelect");
     const formTitle = document.createElement("h3"); // Add a title to indicate edit mode
+    let chosenLokale = "events1"; // Default value for chosenLokale
     formTitle.textContent = "Tilføj tid";
     dateTimeForm.prepend(formTitle);
+
+
+    //fixed times init
+    let fixedTimeForm = document.getElementById("fixedTimeForm");
+    let eventNameFixedInput = document.getElementById("eventNameFixed");
+    let fixedTimeDayDropdown = document.getElementById("fixedTimeDay");
+    let startTimeFixedInput = document.getElementById("startTimeFixed");
+    let endTimeFixedInput = document.getElementById("endTimeFixed");
+    let bankPåFixedInput = document.getElementById("bankPåFixed");
+    
+
+
+
 
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     let editingIndex = null; // Track the index of the booking being edited
 
+    eventSelectInput.addEventListener("change", (event) => {
+        chosenLokale = event.target.value;
+        renderBookings();
+    });
+
+
+
         // Form submit event listener
-        dateTimeForm.addEventListener("submit", (event) => {
+        dateTimeForm?.addEventListener("submit", (event) => {
             event.preventDefault();
             const name = nameForm.value;
             const tlf_nr = tlf_nrInput.value;
@@ -23,20 +45,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const date = eventDateInput.value;
             const time = eventTimeInput.value;
             const bankPå = bankPåInput.checked;
-            //addOrUpdateBooking(date, time, bankPå);
             saveBookings();
+            //addOrUpdateBooking(date, time, bankPå);
+            load();
             name.value = "";
             tlf_nrInput.value = "";
             endTimeInput.value = "";
             eventDateInput.value = "";
             eventTimeInput.value = "";
             bankPåInput.checked = false;
+            renderBookings();
         });
 
 
     // Function to save bookings to localStorage
-    function saveBookings() {        
-        fetch('http://localhost:3000/api/events1', {
+    async function saveBookings() {        
+
+        await fetch(`http://localhost:3000/api/${chosenLokale}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -48,20 +73,22 @@ document.addEventListener("DOMContentLoaded", () => {
               end_time: endTimeInput.value,
               tlf_nr: tlf_nrInput.value,
               bank_pa: bankPåInput.checked,
-              description: "Discussing the Q2 roadmap"
+              description: ""
             })
           })
           .then(response => response.json())
-          .then(data => console.log('Success:', data))
+          .then(load)
           .catch(error => console.error('Error:', error));
+          
     }
 
     // Function to render bookings
     async function renderBookings() {
         bookingsContainer.innerHTML = "";
 
-        let responseRaw= await fetch('http://localhost:3000/api/get_events1');
+        let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
         let response = await responseRaw.json();
+
 
         for (let booking of response) {
             if (booking.title === "Antonio") {
@@ -69,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
             bookingDiv.classList.add("booking");
             bookingDiv.innerHTML = `
                 <p><strong>Navn:</strong> ${booking.title}</p>
-                <p><strong>Dato:</strong> ${booking.event_date.split('T')[0]}</p>
+                <p><strong>Dato:</strong> ${new Date(booking.event_date).toLocaleDateString()}</p>
                 <p><strong>Kl:</strong> ${booking.start_time} til ${booking.end_time}</p>
                 <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
                 <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
@@ -78,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             bookingsContainer.appendChild(bookingDiv);
         }}
-        
     }
 
     // Function to add or update a booking
@@ -116,9 +142,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
+    //DELETE??
     // Event delegation for edit and delete buttons
-    bookingsContainer.addEventListener("click", (event) => {
+    bookingsContainer?.addEventListener("click", (event) => {
         if (event.target.classList.contains("slet-booking")) {
             const index = event.target.getAttribute("data-index");
             deleteBooking(index);
@@ -127,6 +153,45 @@ document.addEventListener("DOMContentLoaded", () => {
             editBooking(index);
         }
     });
+
+    
+    //Fixed Times
+
+    fixedTimeForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = eventNameFixedInput.value;
+        const startTime = startTimeFixedInput.value;
+        const endTime = endTimeFixedInput.value;
+        const bankPå = bankPåFixedInput.checked;
+        const day = fixedTimeDayDropdown.value;
+        
+
+        // Save the fixed time booking
+        saveFixedTimeBooking();
+        fixedTimeForm.reset();
+    });
+
+    // Function to save fixed time booking
+    async function saveFixedTimeBooking() {
+        await fetch(`http://localhost:3000/api/faste_tider`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              title: eventNameFixedInput.value,
+              lokale: chosenLokale,
+              day: fixedTimeDayDropdown.value,
+              start_time: startTimeFixedInput.value,
+              end_time: endTimeFixedInput.value,
+              bank_pa: bankPåFixedInput.checked
+            })
+          })
+          .then(response => response.json())
+          .then(load)
+          .catch(error => console.error('Error:', error));
+    }
+
 
     // Load bookings on page load
     renderBookings();
