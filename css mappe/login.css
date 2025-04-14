@@ -206,3 +206,69 @@ button[type="submit1"]:hover {
 .toggle-signup button:hover {
     color: #0056b3;
 }
+
+@media (max-width: 1200px) {
+    .login-form, .signup-form,
+    .form-container,
+    input[type="text"],
+    input[type="password"],
+    input[type="text1"],
+    input[type="password1"],
+    button[type="submit"],
+    button[type="submit1"] {
+      width: 90vw; 
+    }
+  
+    h1, h2, .form-heading {
+      font-size: 1.2em;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  
+    .logo-container img {
+      width: 80px;
+      height: 80px;
+    }
+  
+    body {
+      padding: 10px; 
+    }
+  }
+
+
+  
+  
+  @media (min-width: 2000px) {
+    .form-container,
+    .login-form,
+    .signup-form,
+    input[type="text"],
+    input[type="password"],
+    input[type="text1"],
+    input[type="password1"],
+    button[type="submit"],
+    button[type="submit1"] {
+      width: 20vw; /* Fixed width looks better on large screens */
+    }
+  
+    .logo-container img {
+      width: 150px;
+      height: 150px;
+    }
+  
+    h1, .form-heading {
+      font-size: 2.5em;
+      margin-top: 1rem;
+    }
+  
+    h2 {
+      font-size: 2em;
+      margin-bottom: 2rem;
+    }
+  
+    body {
+      padding: 2rem;
+    }
+  }
+  
+  
