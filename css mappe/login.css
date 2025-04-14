@@ -248,7 +248,7 @@ button[type="submit1"]:hover {
     input[type="password1"],
     button[type="submit"],
     button[type="submit1"] {
-      width: 20vw; /* Fixed width looks better on large screens */
+      width: 20vw; 
     }
   
     .logo-container img {
