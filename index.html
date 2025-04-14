@@ -33,6 +33,7 @@
 
                 <div>
                     <button id="backButton">🔙</button>
+                    <button id="todayButton">🖕</button>
                     <button id="nextButton">🔜</button>
                 </div>
             </div>
@@ -137,7 +138,7 @@
                 </div>
             
                 <div class="tid-container" id="one-content" hidden="true">
-                  <form id="dateTimeForm">
+                  <form id="dateTimeForm1">
                     
                   
                     <div class="form-column">
@@ -175,6 +176,7 @@
                   
                     <button type="submit" id="addTime">Tilføj tid</button>
                   </form>
+                  <div id="bookingsContainer"></div>
                   
                 </div>
 
@@ -185,15 +187,15 @@
                   
                       <div class="radio-group">
                         <label>
-                          <input type="radio" name="medlemEllerSøger" value="SØGER"> Søger efter band
+                          <input type="radio" id="radioSøgerBand" name="medlemEllerSøger" value="SØGER"> Søger efter band
                         </label>
                         <label>
-                          <input type="radio" name="medlemEllerSøger" value="LEDER"> Søger efter medlem
+                          <input type="radio" id="radioSøgerMedlem" name="medlemEllerSøger" value="LEDER"> Søger efter medlem
                         </label>
                       </div>
                   
                       <input type="text" id="omJer" name="omJer" placeholder="Om jer / Om dig" required>
-                      <input type="text" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
+                      <input type="number" id="tlfNr" name="tlfNr" placeholder="Tlf. nummer" required>
                       <input type="email" id="mail" name="mail" placeholder="Mail" required>
                   
                       <button type="submit" class="submit-btn">Læg op</button>

@@ -104,11 +104,10 @@ async function load() {
     daySquare.classList.add('day');
 
   
-      if (i === (dayOfWeek - 2) * (7 * hour + 1) && nav === 0) {
+      if (i === (dayOfWeek) * (7 * hour+1) && nav === 0) {
         daySquare.id = 'currentDay';
       }
-
-
+      
       daySquare.addEventListener('click', () => openModal(i));
 
     calendar.appendChild(daySquare);  
@@ -196,6 +195,12 @@ function initButtons() {
     load();
   });
 
+  document.getElementById('todayButton').addEventListener('click', () => {
+    nav = 0;
+    selectedWeek = getWeekNumber();
+    load();
+  });
+
   document.getElementById('saveButton').addEventListener('click', saveEvent);
   document.getElementById('cancelButton').addEventListener('click', closeModal);
   document.getElementById('deleteButton').addEventListener('click', deleteEvent);
@@ -239,12 +244,24 @@ function getNext7Days() {
     const day = futureDate.getDate();
     const month = futureDate.getMonth() + 1; // Months are 0-based
     const year = futureDate.getFullYear();
-
+    
+    let finalFutureDate = `${day}/${month}/${year}`;
+    let currentDate = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
+    
     weekDiv = document.createElement('div');
     weekDiv.innerHTML = `${weekdays[i+1]} ${day+1}/${month}`;
+    
+ //doesn't work yet
+    if (finalFutureDate === currentDate) {
+      weekDiv.className = "current-Weekday"
+      //console.log("today", today);
+    }
     weekdayElement.appendChild(weekDiv);
   }
-}
+  
+  }
+
+
   //if (currentDate <= daysInMonth) { 
     //return `${currentDate} ${currentMonth}`;
   //} else {

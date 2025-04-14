@@ -40,6 +40,15 @@ body {
     position: static;
     margin-left: 116px;
   }
+  #current-weekday {
+    width: 100%;
+    display: flex;
+    color: #ff0000;
+    align-self:stretch;
+    position: static;
+    margin-left: 116px;
+  }
+
   #weekdays div {
     width: 165px;
     padding-bottom: 10px;

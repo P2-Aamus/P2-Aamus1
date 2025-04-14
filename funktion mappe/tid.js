@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Function to save bookings to localStorage
-    function saveBookings() {        
+    async function saveBookings() {        
 
-        fetch(`http://localhost:3000/api/${chosenLokale}`, {
+        await fetch(`http://localhost:3000/api/${chosenLokale}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
           })
           .then(response => response.json())
-          .then(data => console.log('Success:', data))
+          .then(load)
           .catch(error => console.error('Error:', error));
           
     }
@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let responseRaw= await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
         let response = await responseRaw.json();
 
-        console.log(response);
 
         for (let booking of response) {
             if (booking.title === "Antonio") {
@@ -133,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Event delegation for edit and delete buttons
-    bookingsContainer.addEventListener("click", (event) => {
+    bookingsContainer?.addEventListener("click", (event) => {
         if (event.target.classList.contains("slet-booking")) {
             const index = event.target.getAttribute("data-index");
             deleteBooking(index);
