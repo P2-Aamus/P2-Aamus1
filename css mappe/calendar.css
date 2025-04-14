@@ -16,10 +16,18 @@ body {
     color: rgb(0, 0, 0);
     background-color: #04bcff;
     font-size: 20px;
-    margin-top: 5  px;
-   
-
+    margin-top: 5px; /* Du havde et mellemrum i '5  px', som er rettet */
   }
+  
+  /* Hover-effekt */
+  button:hover {
+    background-color: #0295cc; /* lidt mørkere blå */
+    color: white; /* valgfri ændring */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03); /* valgfri: giver en let 'pop' */
+    transition: all 0.2s ease-in-out;
+  }
+  
   
   
   #header {
