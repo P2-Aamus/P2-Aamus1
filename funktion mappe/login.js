@@ -49,18 +49,42 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const showSignupButton = document.getElementById('showSignup');
-        const switchToLoginButton = document.getElementById('switchToLogin');
-        const loginFormDiv = document.querySelector('.login-form');
-        const signupAreaDiv = document.querySelector('.signup-area');
+const switchToLoginButton = document.getElementById('switchToLogin');
+const loginFormDiv = document.querySelector('.login-form');
+const signupAreaDiv = document.querySelector('.signup-area');
 
-        showSignupButton.addEventListener('click', () => {
-            loginFormDiv.style.display = 'none';
-            signupAreaDiv.style.display = 'block';
-            switchToLoginButton.style.display = 'block'; // Show the "Log In" button
-        });
 
-        switchToLoginButton.addEventListener('click', () => {
-            signupAreaDiv.style.display = 'none';
-            loginFormDiv.style.display = 'block';
-            switchToLoginButton.style.display = 'none'; // Hide the "Log In" button again (optional, but good for consistency if you were to toggle back to signup)
-        });
+loginFormDiv.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+signupAreaDiv.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+showSignupButton.addEventListener('click', () => {
+  loginFormDiv.style.opacity = '0'; 
+  loginFormDiv.style.transform = 'translateY(-0.5rem)'; 
+  setTimeout(() => {
+    loginFormDiv.style.display = 'none';
+    signupAreaDiv.style.display = 'block';
+    signupAreaDiv.style.opacity = '0'; 
+    signupAreaDiv.style.transform = 'translateY(-0.5)'; 
+    setTimeout(() => {
+      signupAreaDiv.style.opacity = '1'; 
+      signupAreaDiv.style.transform = 'translateY(0)'; 
+    }, 10); 
+  }, 300); 
+  switchToLoginButton.style.display = 'block'; 
+});
+
+switchToLoginButton.addEventListener('click', () => {
+  signupAreaDiv.style.opacity = '0'; 
+  signupAreaDiv.style.transform = 'translateY(-0.5rem)'; 
+  setTimeout(() => {
+    signupAreaDiv.style.display = 'none';
+    loginFormDiv.style.display = 'block';
+    loginFormDiv.style.opacity = '0'; 
+    loginFormDiv.style.transform = 'translateY(0.5rem)'; 
+    setTimeout(() => {
+      loginFormDiv.style.opacity = '1'; 
+      loginFormDiv.style.transform = 'translateY(0)'; 
+    }, 10); 
+  }, 300); 
+  switchToLoginButton.style.display = 'none'; 
+});
