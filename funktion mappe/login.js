@@ -42,29 +42,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let result of users) {
           if (result.login === loginid){
-            if (result.lokale1) {
+
+            console.log("User found:", result);
+            if (result.lokale1 === 1) {
               localStorage.setItem("lokale1", "true");
+            } else {
+              localStorage.setItem("lokale1", "false");
             }
-            if (result.lokale2) {
+
+            if (result.lokale2 === 1) {
               localStorage.setItem("lokale2", "true");
+            } else {
+              localStorage.setItem("lokale2", "false");
             }
-            if (result.lokale3) {
+
+            if (result.lokale3 === 1) {
               localStorage.setItem("lokale3", "true");
+            } else {
+              localStorage.setItem("lokale3", "false");
             }
-            if (result.lokale4) {
+
+            if (result.lokale4 === 1) {
               localStorage.setItem("lokale4", "true");
+            } else {
+              localStorage.setItem("lokale4", "false");
             }
-            if (result.lokale5) {
+
+            if (result.lokale5 === 1) {
               localStorage.setItem("lokale5", "true");
+            } else {
+              localStorage.setItem("lokale5", "false");
             }
-            if (result.lokale6) {
+
+            if (result.lokale6 === 1) {
               localStorage.setItem("lokale6", "true");
+            } else {
+              localStorage.setItem("lokale6", "false");
             }
-            if (result.lokale7) {
+
+            if (result.lokale7 === 1) {
               localStorage.setItem("lokale7", "true");
+            } else {
+              localStorage.setItem("lokale7", "false");
             }
-            if (result.lokale8) {
+
+            if (result.lokale8 === 1) {
               localStorage.setItem("lokale8", "true");
+            } else {
+              localStorage.setItem("lokale8", "false");
             }
           }
         }

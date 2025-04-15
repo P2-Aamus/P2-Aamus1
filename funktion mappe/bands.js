@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderBandPosts();
   
     // Make deleteBandPost function globally accessible
-    window.deleteBandPost = deleteBandPost; }
-  );
+    //window.deleteBandPost = deleteBandPost; }
+});
 
   

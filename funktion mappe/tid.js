@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //fixed times init
     let fixedTimeForm = document.getElementById("fixedTimeForm");
     let eventNameFixedInput = document.getElementById("eventNameFixed");
+    let tlfNrFixedInput = document.getElementById("tlfNrFixed");
     let fixedTimeDayDropdown = document.getElementById("fixedTimeDay");
     let startTimeFixedInput = document.getElementById("startTimeFixed");
     let endTimeFixedInput = document.getElementById("endTimeFixed");
@@ -157,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
                 <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
                 <button class="rediger-booking" data-index="${booking}">Redigér</button>
-                <button class="slet-booking" data-index="${booking}">Slet</button>
+                <button class="slet-booking" data-post-id="${booking.id}">Slet</button>
             `;
             bookingsContainer.appendChild(bookingDiv);
         }}
@@ -179,13 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderBookings();
     }
 
-    // Function to delete a booking
-    function deleteBooking(index) {
-        bookings.splice(index, 1);
-        saveBookings();
-        renderBookings();
-    }
-
     // Function to edit a booking
     function editBooking(index) {
         const booking = bookings[index];
@@ -202,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event delegation for edit and delete buttons
     bookingsContainer?.addEventListener("click", (event) => {
         if (event.target.classList.contains("slet-booking")) {
-            const index = event.target.getAttribute("data-index");
+            const index = event.target.getAttribute("data-post-id");
             deleteBooking(index);
         } else if (event.target.classList.contains("rediger-booking")) {
             const index = event.target.getAttribute("data-index");
@@ -237,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({
               title: eventNameFixedInput.value,
               lokale: chosenLokale,
+              tlf_nr: tlfNrFixedInput.value,
               day: fixedTimeDayDropdown.value,
               start_time: startTimeFixedInput.value,
               end_time: endTimeFixedInput.value,
@@ -251,4 +246,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load bookings on page load
     renderBookings();
+
+
+    async function deleteBooking(bookingId) {
+        try {
+            const response = await fetch(`http://localhost:3000/api/${chosenLokale}/${bookingId}`, {
+                method: 'DELETE',
+            });
+    
+            if (response.ok) {
+                console.log(`Band post with ID ${bookingId} deleted successfully`);
+                renderBookings();
+                load();
+            } else {
+                const errorData = await response.json();
+                console.error('Error deleting post:', errorData);
+                alert('Fejl ved sletning af opslag.');
+            }
+        } catch (error) {
+            console.error('Network error while deleting post:', error);
+            alert('Netværksfejl ved sletning af opslag.');
+        }
+    }
 });
