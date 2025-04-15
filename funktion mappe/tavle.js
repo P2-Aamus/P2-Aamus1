@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to render posts on the message board
   async function renderPosts() {
     messageBoard.innerHTML = "";
-    console.log("messageBoard element:", messageBoard); // Debug
+    //console.log("messageBoard element:", messageBoard); // Debug
 
     try {
    let responseRaw= await fetch('http://localhost:3000/api/get_opslagstavle');
    let response = await responseRaw.json();
-   console.log("Fetched band posts:", response);
+   //console.log("Fetched band posts:", response);
     
     for (let post of response) {
       const postDiv = document.createElement("div");
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <small>${new Date(post.date).toLocaleDateString()}</small>
           <small>${post.time}</small>
           <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
-      console.log("Post data:", post)
+      //console.log("Post data:", post)
       messageBoard.prepend(postDiv);
     }
 

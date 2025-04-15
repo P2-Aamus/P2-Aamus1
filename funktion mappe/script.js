@@ -434,11 +434,11 @@ app.post('/api/signup', (req, res) => {
     */
 app.post('/api/faste_tider', (req, res) => {
   console.log("luder skvinde");
-  const { title, lokale, day, start_time, end_time} = req.body
+  const { title, lokale, tlf_nr, day, start_time, end_time, bank_pa} = req.body
 
   console.log("det her sender vi", req.body);
-  const sql = 'INSERT INTO faste_tider (title, lokale, day, start_time, end_time) VALUES (?, ?, ?, ?, ?)';
-  connection.query(sql, [title, lokale, day, start_time, end_time], (err, results) => {
+  const sql = 'INSERT INTO faste_tider (title, lokale, tlf_nr, day, start_time, end_time, bank_pa) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [title, lokale, tlf_nr, day, start_time, end_time, bank_pa], (err, results) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: 'database error'})
@@ -483,6 +483,150 @@ app.delete('/api/find_band/:id', (req, res) => {
           res.json({ message: `Post with ID ${postId} deleted successfully` });
       } else {
           res.status(404).json({ error: `Post with ID ${postId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events1/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events1 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events2/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events2 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events3/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events3 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events4/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events4 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events5/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events5 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events6/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events6 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events7/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events7 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
+      }
+  });
+});
+
+app.delete('/api/events8/:id', (req, res) => {
+  const bookingId = req.params.id;
+  const sql = 'DELETE FROM events8 WHERE id = ?'; // Assuming your table has an 'id' column
+
+  connection.query(sql, [bookingId], (err, results) => {
+      if (err) {
+          console.error('Database error deleting post:', err);
+          return res.status(500).json({ error: 'Database error deleting post' });
+      }
+
+      if (results.affectedRows > 0) {
+          res.json({ message: `Post with ID ${bookingId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Post with ID ${bookingId} not found` });
       }
   });
 });

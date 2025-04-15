@@ -51,7 +51,7 @@ dateTimeForm.addEventListener("submit", (event) => {
 });
 
 
-function openModal(date) {
+async function openModal(date) {
   clicked = date;
 
   const eventForDay = events.find(e => e.date === clicked);
@@ -60,7 +60,56 @@ function openModal(date) {
     document.getElementById('eventText').innerText = eventForDay.title;
     deleteEventModal.style.display = 'block';
   } else {
-    newEventModal.style.display = 'block';
+
+    let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
+    let response = await responseRaw.json();
+
+    let responseRaw_fixedTimes = await fetch(`http://localhost:3000/api/get_faste_tider`);
+    let response_fixedTimes = await responseRaw_fixedTimes.json();
+
+    for (let events of response) {
+      let date = new Date(events.event_date);
+      let dayOfWeek = date.getDay();
+      let hour = parseInt(events.start_time.split(':')[0])
+      let eventSlot = (hour * 7) + (dayOfWeek - 1) + 1;
+
+      if (clicked === eventSlot) {
+        document.getElementById('eventText').innerText = events.title;
+        document.getElementById('eventTimeModal').innerText = "Fra " + events.start_time + " til " + events.end_time;
+        document.getElementById('tlfNrModal').innerText = "Tlf Nr. " + events.tlf_nr;
+
+        if (events.bank_pa) {
+        document.getElementById('bankPåModal').innerText = "Bank på: Ja";
+        } else {
+          document.getElementById('bankPåModal').innerText = "Bank på: Nej";
+        }
+        deleteEventModal.style.display = 'block';
+      }
+      else for (let events of response_fixedTimes) {
+      let dayOfWeek = events.day;
+      let hour = parseInt(events.start_time.split(':')[0])
+      let eventSlot = (hour * 7) + (dayOfWeek - 1) + 1;
+
+      if (clicked === eventSlot) {
+        document.getElementById('eventText').innerText = events.title;
+        document.getElementById('eventTimeModal').innerText = "Fra " + events.start_time + " til " + events.end_time;
+        document.getElementById('tlfNrModal').innerText = "Tlf Nr. " + events.tlf_nr;
+
+        if (events.bank_pa) {
+          document.getElementById('bankPåModal').innerText = "Bank på: Ja";
+        } else {
+            document.getElementById('bankPåModal').innerText = "Bank på: Nej";
+          }
+
+        deleteEventModal.style.display = 'block';
+      } else {
+        newEventModal.style.display = 'block';
+      }
+    }
+  }
+
+
+    //newEventModal.style.display = 'block';
   }
 
   backDrop.style.display = 'block';
@@ -280,11 +329,6 @@ function getNext7Days() {
     weekDiv = document.createElement('div');
     weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
     
- //doesn't work yet
-    if (finalFutureDate === currentDate) {
-      weekDiv.className = "current-Weekday"
-      //console.log("today", today);
-    }
     weekdayElement.appendChild(weekDiv);
   }
   

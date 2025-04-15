@@ -104,6 +104,9 @@
             <h2>Event</h2>
       
             <p id="eventText"></p>
+            <p id="eventTimeModal"></p>
+            <p id="tlfNrModal"></p>
+            <p id="bankPåModal"></p>
       
             <button id="deleteButton">Delete</button>
             <button id="closeButton">Close</button>
@@ -194,6 +197,11 @@
                       <option value=6 >Lørdag</option>
                       <option value=7 >Søndag</option>
                     </select>
+
+                    <div class="form-column">
+                      <label for="eventName">tlf Nr:</label>
+                      <input type="number" id="tlfNrFixed" placeholder="Tlf Nr." required>
+                    </div>
 
                     <div class="form-column">
                       <label for="startTimeFixed">Starttid:</label>
