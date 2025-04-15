@@ -32,3 +32,51 @@
   font-size:20px;
 }
 
+
+/* alt herunder er styling af tilføj tid og fast tid mm */
+
+.form-rowdato { /*dato tilføj tid*/
+  
+   
+  margin-left: 31px; 
+  width: 100000px;
+}
+.form-columnstart {
+
+  margin-left: 6px;
+}
+.form-columnslut {
+  
+  margin-left: 12px;
+}
+
+.form-rowbank {
+  align-self: left;
+  margin-left: 5px;
+}
+
+
+.form-columnfd { /*dropdown fixed*/
+  display: left;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.form-columnstartfixed { /*start dag fixed*/
+  display: flex;
+  margin-left: 10px;
+  
+}
+
+.form-columnslutfixed { /*slut dag fixed*/
+  display: flex;
+  margin-left: 10px;
+}
+
+.form-rowfixedbank { /*bank på fixed*/
+  display: flex;
+  margin-left: 100px;
+}
+
+
+

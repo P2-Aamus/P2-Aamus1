@@ -19,6 +19,7 @@ body {
     margin-top: 5px; /* Du havde et mellemrum i '5  px', som er rettet */
   }
   
+  
   /* Hover-effekt */
   button:hover {
     background-color: #0295cc; /* lidt mørkere blå */
@@ -197,7 +198,7 @@ body {
   
   #eventSelect  {
 align-self: center;
-margin-left: 12%
-
-;
+margin-left: 12%;
   }  
+
+ 

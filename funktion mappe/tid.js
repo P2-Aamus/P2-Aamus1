@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             bookingDiv.innerHTML = `
                 <p><strong>Navn:</strong> ${booking.title}</p>
                 <p><strong>Dato:</strong> ${new Date(booking.event_date).toLocaleDateString()}</p>
-                <p><strong>Kl:</strong> ${booking.start_time} til ${booking.end_time}</p>
+                <p><strong>Kl:</strong> ${parseInt(booking.start_time.split(':')[0])}:00 til ${parseInt(booking.end_time.split(':')[0])}:00</p>
                 <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
                 <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
                 <button class="rediger-booking" data-index="${booking}">Redigér</button>
