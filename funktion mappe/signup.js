@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("signupForm");
     const loginInput = document.getElementById("login");
     const kodeordInput = document.getElementById("kodeord");
+    const admindidInput = document.getElementById("adminid");
+    const navnInput = document.getElementById("navn");
+    const tlfnummerInput = document.getElementById("tlfnummer");
     const lokale1Access = document.getElementById("lokale1Access");
     const lokale2Access = document.getElementById("lokale2Access");
     const lokale3Access = document.getElementById("lokale3Access");
@@ -16,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const login = loginInput.value.trim();
       const kodeord = kodeordInput.value.trim();
+      const adminid = false;
+      const navn = navnInput.value.trim();
+      const tlfnummer = tlfnummerInput.value.trim();
       const lokale1 = lokale1Access.checked;
       const lokale2 = lokale2Access.checked;
       const lokale3 = lokale3Access.checked;
@@ -26,17 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const lokale8 = lokale8Access.checked;
 
       console.log("Login:", login);
-      console.log("Kodeord:", kodeord);
+      console.log("Kodeord:", kodeord)
+      console.log("Navn:", navn);
+      console.log("Tlfnummer:", tlfnummer);
+      ;
 
-      if (!login || !kodeord) {
-        alert("Both fields are required.");
+      if (!login || !kodeord || !navn || !tlfnummer) {
+        alert("All fields are required.");
         return;
       }
 
       fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login, kodeord, lokale1, lokale2, lokale3, lokale4, lokale5, lokale6, lokale7, lokale8 })
+        body: JSON.stringify({ login, kodeord, adminid, navn, tlfnummer, lokale1, lokale2, lokale3, lokale4, lokale5, lokale6, lokale7, lokale8 })
       })
       .then(res => res.json())
       .then(data => {

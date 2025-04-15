@@ -34,6 +34,12 @@
                     <div class="signup-area" hidden="true">
                         <h2 class="form-heading">Opret konto</h2>
                         <form id="signupForm">
+                            <label for="fulde-navn">Fulde navn</label><br />
+                            <input type="text" id="navn" required /><br /><br />
+
+                            <label for="tlf-nr">Tlf. Nr</label><br />
+                            <input type="text" id="tlfnummer" required /><br /><br />
+
                             <label for="login">Brugernavn</label><br />
                             <input type="text1" id="login" required /><br /><br />
         
@@ -41,6 +47,10 @@
                             <input type="password1" id="kodeord" required /><br /><br />
         
                             <button type="submit1" id="opret">Opret</button>
+
+                            <div class="dropdown-container" id="lokaleDropdown">
+                                <div class="dropdown-label">Vælg de lokaler du er blevet givet</div>
+                                <div class="checkbox-dropdown">
                             <label>
                                 <input type="checkbox" id="lokale1Access"/> Lokale 1
                                 </label>
@@ -72,7 +82,8 @@
                                 <label>
                                 <input type="checkbox" id="lokale8Access"/> Lokale 8
                                 </label>
-
+                                </div>
+                            </div>
                     
                         </form>
                     </div>
@@ -82,7 +93,21 @@
                     </div>
   
             </div>
-           
+            <script>
+                const dropdown = document.getElementById('lokaleDropdown');
+                const label = dropdown.querySelector('.dropdown-label');
+              
+                label.addEventListener('click', () => {
+                  dropdown.classList.toggle('open');
+                });
+              
+                // Optional: close dropdown when clicking outside
+                window.addEventListener('click', (e) => {
+                  if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                  }
+                });
+              </script>
            
 
         
