@@ -109,7 +109,7 @@ async function load() {
     daySquare.classList.add('day');
 
   
-      if (i === (dayOfWeek) * (7 * hour+1) && nav === 0) {
+      if (i === (dayOfWeek) + (7 * hour) && nav === 0) {
         daySquare.id = 'currentDay';
       }
       
@@ -278,7 +278,7 @@ function getNext7Days() {
     let currentDate = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
     
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day+1}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
     
  //doesn't work yet
     if (finalFutureDate === currentDate) {

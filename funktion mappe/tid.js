@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 let response = await responseRaw.json();
 
                 // Debugging: Log the fetched bookings
-                console.log("Fetched bookings:", response);
+                //console.log("Fetched bookings:", response);
 
                 // Check for conflicting bookings
                 for (let booking of response) {
-                    console.log("Checking booking:", booking);
+                    //console.log("Checking booking:", booking);
 
                     // Ensure consistent date format for comparison
                     const inputDate = new Date(date).toISOString().split('T')[0]; // Format input date as YYYY-MM-DD
@@ -75,14 +75,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const bookingDate = bookingDateObj.toISOString().split('T')[0]; // Format shifted booking date as YYYY-MM-DD
 
-                    console.log("Input date:", inputDate, "Shifted booking date:", bookingDate, "Booking Time:", booking.start_time, "Input Time:", time+":00");
+                   
+                    //console.log("Input date:", inputDate, "Shifted booking date:", bookingDate, "Booking Time:", booking.start_time, "Input Time:", time+":00");
 
-                    if (bookingDate === inputDate && booking.start_time === `${time}:00`) {
-                        alert("Booking already exists at this date and time!");
-                        return; // Stop execution if a conflict is found
+                    const toMinutes = t => {
+                        const [h, m] = t.split(':').map(Number);
+                        return h;
+                    };
+                    
+                    const inputTimeMin = toMinutes(time);
+                    const bookingStartMin = toMinutes(booking.start_time);
+                    const bookingEndMin = toMinutes(booking.end_time);
+                    
+                    if (bookingDate === inputDate && inputTimeMin >= bookingStartMin && inputTimeMin < bookingEndMin) {
+                        alert("Booking time conflicts with an existing booking!");
+                        return;
                     }
                 }
-
+                
                 // If no conflicts, proceed with saving the booking
                 await saveBookings();
                 load();
