@@ -84,6 +84,7 @@ async function openModal(date) {
           document.getElementById('bankPåModal').innerText = "Bank på: Nej";
         }
         deleteEventModal.style.display = 'block';
+        backDrop.style.display = 'block';
       }
       else for (let events of response_fixedTimes) {
       let dayOfWeek = events.day;
@@ -102,8 +103,9 @@ async function openModal(date) {
           }
 
         deleteEventModal.style.display = 'block';
+        backDrop.style.display = 'block';
       } else {
-        newEventModal.style.display = 'block';
+        
       }
     }
   }
@@ -112,7 +114,7 @@ async function openModal(date) {
     //newEventModal.style.display = 'block';
   }
 
-  backDrop.style.display = 'block';
+  
 }
 
 async function load() {
@@ -405,3 +407,16 @@ eventSelectInput.value = chosenLokale;
   localStorage.setItem("firstLoad", "true");
 }
 
+//admin button
+const adminDivElement = document.getElementById("adminDiv");
+
+
+if (localStorage.getItem("admin") == "true") {
+  const adminButton = document.createElement("button");
+  adminButton.innerText = "Admin";
+  adminButton.addEventListener("click", () => {
+    window.location.href = '/admin.html';
+  });
+
+  adminDivElement?.appendChild(adminButton);
+}

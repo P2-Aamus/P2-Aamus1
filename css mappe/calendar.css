@@ -13,8 +13,9 @@ body {
     outline: none;
     padding: 5px;
     border-radius: 5px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 20px;
+    height: 50px;
   }
   
   #header {

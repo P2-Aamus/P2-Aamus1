@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
+  
 
   loginForm.addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent the default form submission
@@ -43,7 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let result of users) {
           if (result.login === loginid){
 
-            console.log("User found:", result);
+            if (result.adminid === 1) {
+              localStorage.setItem("admin", "true");
+            } else {
+              localStorage.setItem("admin", "false");
+            }
+
+
+            
             if (result.lokale1 === 1) {
               localStorage.setItem("lokale1", "true");
             } else {
