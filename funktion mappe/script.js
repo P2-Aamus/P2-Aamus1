@@ -406,14 +406,14 @@ app.post('/api/find_band', (req, res) => {
 });
 
 app.post('/api/signup', (req, res) => {
-  const { login, kodeord } = req.body;
+  const { login, kodeord, lokale1, lokale2, lokale3, lokale4, lokale5, lokale6, lokale7, lokale8} = req.body;
 
   if (!login || !kodeord) {
     return res.status(400).json({ error: 'login and kodeord are required' });
   }
 
-  const sql = 'INSERT INTO login (login, kodeord) VALUES (?, ?)';
-  connection.query(sql, [login, kodeord], (err, results) => {
+  const sql = 'INSERT INTO login (login, kodeord, lokale1, lokale2, lokale3, lokale4, lokale5, lokale6, lokale7, lokale8) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  connection.query(sql, [login, kodeord, lokale1, lokale2, lokale3, lokale4, lokale5, lokale6, lokale7, lokale8], (err, results) => {
     if (err) {
       console.error('Database error:', err);
       return res.status(500).json({ error: 'Database error' });
