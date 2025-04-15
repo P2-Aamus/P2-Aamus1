@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personinformation</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Medlemsliste</h1>
+    <table id="personTable">
+        <thead></thead>
+            <tr>
+                <th>Navn</th>
+                <th>Telefonnummer</th>
+                <th>Lokale</th>
+                <th>User ID</th>
+                <th>Slet bruger</th>
+            </tr>
+        </thead>
+        <tbody id="personTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function hentPersonInformation() {
+            try {
+                const response = await fetch('http://localhost:3000/api/getPersonInfo');
+                if (!response.ok) {
+                    throw new Error(`HTTP fejl! status: ${response.status}`);
+                }
+                const data = await response.json();
+                visPersonInformation(data);
+            } catch (error) {
+                console.error('Fejl ved hentning af personinformation:', error);
+                document.getElementById('personTableBody').innerHTML = `<tr><td colspan="4">Fejl ved hentning af data. Se konsollen for detaljer.</td></tr>`;
+            }
+        }
+
+        function visPersonInformation(personer) {
+            const tableBody = document.getElementById('personTableBody');
+            tableBody.innerHTML = ''; // Ryd eksisterende rækker
+
+            personer.forEach(person => {
+                const row = tableBody.insertRow();
+                const navnCell = row.insertCell();
+                const tlfnummerCell = row.insertCell();
+                const lokale1Cell = row.insertCell();
+                const userIdCell = row.insertCell();
+                const actionCell = row.insertCell();
+
+                navnCell.textContent = person.navn;
+                tlfnummerCell.textContent = person.tlfnummer;
+                lokale1Cell.textContent = person.lokale1;
+                userIdCell.textContent = person.id; 
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Slet';
+                deleteButton.onclick = () => {
+                    if (person.id) {
+                        deletePost(person.id);
+                    } else {
+                        console.error('User ID is undefined:', person);
+                        alert('Fejl: Bruger-ID mangler. Kan ikke slette.');
+                    }
+                };
+                actionCell.appendChild(deleteButton);
+            });
+
+            if (personer.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4">Ingen personinformation fundet.</td></tr>`;
+            }
+        }
+
+        async function deletePost(userId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/deleteUser/${userId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            console.log(`Band post with ID ${userId} deleted successfully`);
+            hentPersonInformation();
+        } else {
+            const errorData = await response.json();
+            console.error('Error deleting post:', errorData);
+            alert('Fejl ved sletning af opslag.');
+        }
+    } catch (error) {
+        console.error('Network error while deleting post:', error);
+        alert('Netværksfejl ved sletning af opslag.');
+    }
+}
+
+        // Kald funktionen når siden indlæses
+        hentPersonInformation();
+    </script>
+</body>
+</html>

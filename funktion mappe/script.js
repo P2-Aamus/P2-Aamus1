@@ -217,6 +217,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 
+
 //APIs to post data to the database
 app.post('/api/events1', (req, res) => {
   console.log("luder skvinde");
@@ -448,6 +449,51 @@ app.post('/api/faste_tider', (req, res) => {
     }
   });
 });
+
+app.get('/api/getPersonInfo', (req, res) => {
+  console.log("Henter information om personer...");
+  
+
+  const sql = 'SELECT navn, tlfnummer, lokale1, id FROM login';
+
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.log('Database fejl:', err);
+      return res.status(500).json({ error: 'Database fejl' });
+    }
+
+    console.log("Resultater fra forespørgslen:", results);
+
+    if (results.length > 0) {
+      res.json(results); // Sender hele listen af personer
+    } else {
+      res.json([]); // Sender en tom liste, hvis der ikke findes nogen personer
+    }
+  });
+});
+
+
+app.delete('/api/deleteUser/:id', (req, res) => {
+  const userId = req.params.id;
+  const sql = 'DELETE FROM login WHERE id = ?';
+
+  connection.query(sql, [userId], (err, result) => {
+      if (err) {
+          console.error('Error deleting user:', err);
+          return res.status(500).json({ error: 'Database error' });
+      }
+
+      if (result.affectedRows === 0) {
+          // No rows were affected, meaning the post with the given ID was not found
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Successfully deleted the post
+      res.json({ message: 'User deleted successfully' });
+  });
+});
+
+
 
 app.delete('/api/opslagstavle/:id', (req, res) => {
   const postId = req.params.id;
