@@ -143,6 +143,8 @@
     transition-duration: 300ms;
     border-radius: 5px;
     font-size: 0.75rem;
+    height: 1vw;
+    width: 3vw;
 }
 
 .delete-btn:hover {

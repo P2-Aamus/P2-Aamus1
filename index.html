@@ -6,10 +6,13 @@
         <title>Aalborg Musikforening</title>
         <link rel="stylesheet" href="css mappe/styles.css">
         <link rel="stylesheet" href="css mappe/calendar.css">
+        <link rel="stylesheet" href="css mappe/tid.css">
  
 
     </head>
     <body>
+
+      
       <!-- Admin knap -->
       <div id="adminDiv"></div>
 
@@ -35,9 +38,9 @@
 
 
                 <div>
-                    <button id="backButton">🔙</button>
-                    <button id="todayButton">🖕</button>
-                    <button id="nextButton">🔜</button>
+                    <button id="backButton">←</button>
+                    <button id="todayButton">I dag</button>
+                    <button id="nextButton">→</button>
                 </div>
             </div>
 
@@ -141,8 +144,14 @@
                         <button class="button button3" id="findBandsButton">Find Band</button>  
                     </div>
                 </div>
+
+                
+
                 <!-- Containeren til at skrive sine tider -->
                 <div class="tid-container" id="one-content" hidden="true">
+                  <p10 class="band-intro" id="bandIntro">Dine tider</p10>
+                  <div id="bookingsContainer"></div>
+                 
                   <form id="dateTimeForm1">
                     
                     <div class="form-column">
@@ -165,6 +174,7 @@
                         <label for="endTime">Sluttid:</label>
                         <input type="time" id="endTime" name="endTime" required>
                       </div>
+                      
                     </div>
                   
                     <div class="form-column">
@@ -179,11 +189,13 @@
                     </div>
                   
                     <button type="submit" id="addTime">Tilføj tid</button>
+                    
                   </form>
 
                   <!-- Form til at bestille en fast tid-->
                   <form class="form-column" id="fixedTimeForm">
                     <h3>Fast tid</h3>
+                    
 
                     <div class="form-column">
                       <label for="eventName">Navn:</label>
@@ -226,7 +238,7 @@
                   </form>
 
                   <!--Den her div bliver populated inde i tid.js, og indeholder de bookings, man har lavet-->
-                  <div id="bookingsContainer"></div>
+                 
                   
                 </div>
 
@@ -277,7 +289,6 @@
                 
                 <!-- Containeren der indeholder opslgastavlen -->  
                 <div class="posts-container" >
-                    
                     <form id="postForm">
                         <div class="form-group">
                             <input type="text" id="postTitle" placeholder="Titel" required>
