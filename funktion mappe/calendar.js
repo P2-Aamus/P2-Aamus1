@@ -1,3 +1,11 @@
+//log Out button
+const logoutButton = document.getElementById("LogoutBtn");
+
+logoutButton?.addEventListener("click", () => {
+  window.location.href = '/login.html';
+});
+
+
 let nav = 0;
 let clicked = null;
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
@@ -84,6 +92,7 @@ async function openModal(date) {
           document.getElementById('bankPåModal').innerText = "Bank på: Nej";
         }
         deleteEventModal.style.display = 'block';
+        backDrop.style.display = 'block';
       }
       else for (let events of response_fixedTimes) {
       let dayOfWeek = events.day;
@@ -102,8 +111,9 @@ async function openModal(date) {
           }
 
         deleteEventModal.style.display = 'block';
+        backDrop.style.display = 'block';
       } else {
-        newEventModal.style.display = 'block';
+        
       }
     }
   }
@@ -112,7 +122,7 @@ async function openModal(date) {
     //newEventModal.style.display = 'block';
   }
 
-  backDrop.style.display = 'block';
+  
 }
 
 async function load() {
@@ -327,7 +337,7 @@ function getNext7Days() {
     let currentDate = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
     
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day -1}/${month}`;
     
     weekdayElement.appendChild(weekDiv);
   }
@@ -405,3 +415,16 @@ eventSelectInput.value = chosenLokale;
   localStorage.setItem("firstLoad", "true");
 }
 
+//admin button
+const adminDivElement = document.getElementById("adminDiv");
+
+
+if (localStorage.getItem("admin") == "true") {
+  const adminButton = document.createElement("button");
+  adminButton.innerText = "Admin";
+  adminButton.addEventListener("click", () => {
+    window.location.href = '/admin.html';
+  });
+
+  adminDivElement?.appendChild(adminButton);
+}
