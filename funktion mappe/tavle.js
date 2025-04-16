@@ -1,24 +1,21 @@
+//Den her side er til ballersne der vil lave opslag og fremme seje ting i foreningen
 document.addEventListener("DOMContentLoaded", () => {
   const messageBoard = document.getElementById("messageBoard");
   const postForm = document.getElementById("postForm");
   const postTitle = document.getElementById("postTitle");
   const postContent = document.getElementById("postContent");
-  const bandMessageBoard = document.getElementById("bandMessageBoard");
-  const bandPostForm = document.getElementById("postForm");
-  const bandPostTitle = document.getElementById("postTitle");
-  const bandPostContent = document.getElementById("postContent")
+  
 
   let posts = null;
   messageBoard.innerHTML = "";
 
-  // Function to add a post
+  // Lave en post
   function addPost(title, content) {
-    const timestamp = new Date().toLocaleString();
-    //posts.push({ title, content, timestamp });
     savePosts();
-    //renderPosts();
   }
 
+  renderPosts();
+  //Her sletter vi en posts fra databasen, med deres postid
   async function deletePost(postId) {
     try {
         const response = await fetch(`http://localhost:3000/api/opslagstavle/${postId}`, {
@@ -39,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 }
 
-  // Function to save posts to local storage
+  // Den her funktion er så til at gemme posts på opslagstavlen
   async function savePosts() {
     messageBoard.innerHTML = "";
     await fetch('http://localhost:3000/api/opslagstavle', {
@@ -60,16 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  // Function to render posts on the message board
+  // Her får vi posts frem, den indlæsser dem
   async function renderPosts() {
     messageBoard.innerHTML = "";
-    //console.log("messageBoard element:", messageBoard); // Debug
 
     try {
    let responseRaw= await fetch('http://localhost:3000/api/get_opslagstavle');
    let response = await responseRaw.json();
-   //console.log("Fetched band posts:", response);
-    
+      //Her bliver der brugt innerhtml til at få de ting der bliver skrevet frem
     for (let post of response) {
       const postDiv = document.createElement("div");
       postDiv.classList.add("notice");
@@ -79,10 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <small>${new Date(post.date).toLocaleDateString()}</small>
           <small>${post.time}</small>
           <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
-      //console.log("Post data:", post)
+          //Den her linje lige over bliver brugt flere gange i løbet af det hele, men den er lidt sjov
+          //Esstienlt bruger den post ID'et, til at fortælle hvad der skal slettets
       messageBoard.prepend(postDiv);
     }
 
+    //Sørger for at post kan slettes
     const deleteButtons = document.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -92,13 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 } catch (error) {
     console.error('Error fetching posts:', error);
-    messageBoard.innerHTML = '<p>Kunne ikke hente opslag.</p>'; // Use bandMessageBoard
+    messageBoard.innerHTML = '<p>Kunne ikke hente opslag.</p>'; 
 }
 }
 
-  
-
-  // Form submit event listener
+  //Eventlistener til at sumbit en post
   postForm.addEventListener("submit", (event) => {
     event.preventDefault();
     addPost(postTitle.value, postContent.value);
@@ -107,18 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   
-
-  // Load existing posts when page loads
-  renderPosts();
-
-  // Make deletePost function globally accessible and use the correct posts array.
   window.deletePost = function(index) {
     posts.splice(index, 1);
-    //savePosts();
     renderPosts();
   };
 });
 
+//Baller funktion til at fjerne og vise opslagstavle, dine tider og find bands
+//Den her er til at få dine tider frem
 (function() {
     $('#dineTiderButton').click(function() {
       if ($('#one-content').hasClass('hide')) {
@@ -137,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
+//Den her er til at få opslagstavle frem
 (function() {
   $('#noticeBoardButton').click(function() {
     if ($('#two-content').hasClass('show')) {
@@ -156,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
   
+//Den her er til at få find bands frem
 (function() {
   $('#findBandsButton').click(function() {
     if ($('#three-content').hasClass('show')) {
@@ -173,6 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
-fetch('http://localhost:3000/api/get_opslagstavle').then(response => response.json())
+
 
 

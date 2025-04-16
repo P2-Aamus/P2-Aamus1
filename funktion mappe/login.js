@@ -1,28 +1,27 @@
+//Basiclly at det er bare til login delen af loginsiden
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   
-
+  
   loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const loginid = document.getElementById("loginid").value;
     const kodeordid = document.getElementById("kodeordid").value;
-
+    //Her beder den at både brugernavn og kodeord skal skrives ind
     if (!loginid || !kodeordid) {
       alert("Please enter both login and password.");
       return;
     }
-
+    //Hvis både brugernavn og kodeord er der, vil den prøve at hente login
     try {
       const response = await fetch('http://localhost:3000/api/login', {
-        method: 'GET', // Or 'POST' depending on how you want to handle it on the backend
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        // If using POST, you would include the body:
-        // body: JSON.stringify({ login: loginid, kodeord: kodeordid }),
       });
-
+      //Fejlmelding hvis den ikke henter
       if (!response.ok) {
         console.error('Login request failed:', response.status);
         alert('Login failed due to a server error.');
@@ -31,19 +30,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const users = await response.json();
 
-      // Check if the entered credentials match any user in the database
+      // Her checker den om det der er blevet indtastet matcher nogle af dem der er i databasen
       const userFound = users.some(user => user.login === loginid && user.kodeord === kodeordid);
-
+      //Her hvis den har fundet en user så giver den besked om det er et match, og sender dig videre til kaldenderen 
       if (userFound) {
         localStorage.setItem("firstLoad", "false");
       
         alert("Login successful!");
-        // Redirect to a logged-in page or perform other actions upon successful login
-        window.location.href = '/index.html'; // Example redirection
+        window.location.href = '/index.html'; 
 
         for (let result of users) {
           if (result.login === loginid){
-
+      //Den skal også tjekke om du har admin adgang, da det giver adgang til ekstra ting
             if (result.adminid === 1) {
               localStorage.setItem("admin", "true");
             } else {
@@ -51,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            
+            //Den tjekker også hvilke lokaler du er en del af
             if (result.lokale1 === 1) {
               localStorage.setItem("lokale1", "true");
             } else {
@@ -103,15 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-
-
-
-
-
-
-
-
-
+      //Hvis der ikke er noget der match i databasen siger den, nej tak du
       } else {
         alert("Invalid login credentials.");
       }
@@ -123,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//Til at både skifte mellem login og opret bruger, men også til animationen af det :P
 const showSignupButton = document.getElementById('showSignup');
 const switchToLoginButton = document.getElementById('switchToLogin');
 const loginFormDiv = document.querySelector('.login-form');

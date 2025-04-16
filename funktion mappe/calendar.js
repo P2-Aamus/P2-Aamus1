@@ -5,7 +5,7 @@ logoutButton?.addEventListener("click", () => {
   window.location.href = '/login.html';
 });
 
-
+//Initialize variabler og HTML-elementer
 let nav = 0;
 let clicked = null;
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
@@ -28,37 +28,18 @@ const endTimeInput = document.getElementById("endTime2");
 const tlf_nrInput = document.getElementById("eventTlfNr2");
 const bankPåInput = document.getElementById("bankPå2");
 
-let chosenLokale = ''; // Default value for chosenLokale
+let chosenLokale = ''; 
 let selectedWeek = getWeekNumber();
 
 
-
+//Skifter hvilket lokale vises på siden
 eventSelectInput.addEventListener("change", (event) => {
  chosenLokale = event.target.value;
  load();
 
 });
 
-dateTimeForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const name = nameForm.value;
-  const tlf_nr = tlf_nrInput.value;
-  const endTime = endTimeInput.value;
-  const date = eventDateInput.value;
-  const time = eventTimeInput.value;
-  const bankPå = bankPåInput.checked;
-  //addOrUpdateBooking(date, time, bankPå);
-  saveBookings();
-  name.value = "";
-  tlf_nrInput.value = "";
-  endTimeInput.value = "";
-  eventDateInput.value = "";
-  eventTimeInput.value = "";
-  bankPåInput.checked = false;
-  closeModal();
-});
-
-
+//viser en pop up med info omkring den valgte booking, ved at læse dem fra databasen
 async function openModal(date) {
   clicked = date;
 
@@ -75,6 +56,7 @@ async function openModal(date) {
     let responseRaw_fixedTimes = await fetch(`http://localhost:3000/api/get_faste_tider`);
     let response_fixedTimes = await responseRaw_fixedTimes.json();
 
+    //Kalendaren er rendered som en linje, som er "foldet" i en firkant, og eventSlot beregner hvilken firkant, en booking hører til
     for (let events of response) {
       let date = new Date(events.event_date);
       let dayOfWeek = date.getDay();
@@ -93,7 +75,7 @@ async function openModal(date) {
         }
         deleteEventModal.style.display = 'block';
         backDrop.style.display = 'block';
-      }
+      } //Det samme sker for faste tider
       else for (let events of response_fixedTimes) {
       let dayOfWeek = events.day;
       let hour = parseInt(events.start_time.split(':')[0])
@@ -112,19 +94,13 @@ async function openModal(date) {
 
         deleteEventModal.style.display = 'block';
         backDrop.style.display = 'block';
-      } else {
-        
       }
     }
   }
-
-
-    //newEventModal.style.display = 'block';
-  }
-
-  
+}
 }
 
+//Funktionen loader alle events fra serveren og renderer dem på kalenderen, samt loade selve kalenderen
 async function load() {
 
   hideLokaleOptions();
@@ -162,7 +138,7 @@ async function load() {
   
     calendar.innerHTML = '';
 
-
+  //for hver time i en uge, load en firkant
   for(let i = 1; i <= 168; i++) {
     const daySquare = document.createElement('div');
     daySquare.classList.add('day');
@@ -176,25 +152,24 @@ async function load() {
 
     calendar.appendChild(daySquare);  
     
-    //Populate calendar with events
+    //Indsætter bookings i kalendaren fra databasen
     for (let events of response) {
       let date = new Date(events.event_date);
       let dayOfWeek = date.getDay();
       let eventBlock = (dayOfWeek -2 ) + (7 * parseInt(events.start_time.split(':')[0]) + 1);
       let eventEndBlock = (dayOfWeek - 2) + (7 * parseInt(events.end_time.split(':')[0]) - 6);
 
-      //calculate week of event
-      // Calculate the ISO week number for the event date
+      //Beregner hvilken uge, en booking er i
       const tempDate = new Date(events.event_date);
       tempDate.setHours(0, 0, 0, 0);
-      tempDate.setDate(tempDate.getDate() + 3 - ((tempDate.getDay() + 6) % 7)); // Adjust to Thursday
+      tempDate.setDate(tempDate.getDate() + 3 - ((tempDate.getDay() + 6) % 7));
       const week1 = new Date(tempDate.getFullYear(), 0, 4);
       week1.setDate(week1.getDate() - ((week1.getDay() + 3) % 7));
       const eventWeekNumber = 1 + Math.round(((tempDate - week1) / 86400000 - 3) / 7);
 
-      //console.log(eventBlock);
+      //hvis en booking varer flere timer, indsætter den i kalendaren flere gange
       for (let hour = parseInt(events.start_time.split(':')[0]); hour < parseInt(events.end_time.split(':')[0]); hour++) {
-        const eventSlot = (hour * 7) + (dayOfWeek - 1) + 1; // Column shift: Mon = 0 → +1 aligns with i
+        const eventSlot = (hour * 7) + (dayOfWeek - 1) + 1;
       
         if (i === eventSlot && eventWeekNumber === selectedWeek + nav) {
           const eventDiv = document.createElement('div');
@@ -202,6 +177,7 @@ async function load() {
           eventDiv.classList.add('event');
           daySquare.appendChild(eventDiv);
 
+          //Hvis en booking ikke er Antonios, så skal farven være rødt, sådan at man kan nemt skelne mellem egne og andres tider
           if (events.title !== "Antonio") {
             eventDiv.style.backgroundColor = "red";
           }
@@ -209,14 +185,14 @@ async function load() {
       }
     }    
 
-    //Populate calendar with events
+    //Indsætter faste i kalendaren fra databasen (samme logik som før)
     for (let events of response_fixedTimes) {
       let day = events.day;
       let dayOfWeek = 0;
 
 
       for (let hour = parseInt(events.start_time.split(':')[0]); hour < parseInt(events.end_time.split(':')[0]); hour++) {
-        const eventSlot = (hour * 7) + (day - 1) + 1; // Column shift: Mon = 0 → +1 aligns with i
+        const eventSlot = (hour * 7) + (day - 1) + 1;
       
         if (i === eventSlot && events.lokale === chosenLokale) {
           const eventDiv = document.createElement('div');
@@ -236,7 +212,7 @@ async function load() {
 
   
 }
-
+//lukker pop up
 function closeModal() {
   eventTitleInput.classList.remove('error');
   newEventModal.style.display = 'none';
@@ -247,28 +223,7 @@ function closeModal() {
   load();
 }
 
-function saveEvent() {
-  if (eventTitleInput.value) {
-    eventTitleInput.classList.remove('error');
-
-    events.push({
-      date: clicked,
-      title: eventTitleInput.value,
-    });
-
-    localStorage.setItem('events', JSON.stringify(events));
-    closeModal();
-  } else {
-    eventTitleInput.classList.add('error');
-  }
-}
-
-function deleteEvent() {
-  events = events.filter(e => e.date !== clicked);
-  localStorage.setItem('events', JSON.stringify(events));
-  closeModal();
-}
-
+//initialize knapperne til at gå frem og tilbage i ugerne
 function initButtons() {
   document.getElementById('nextButton').addEventListener('click', () => {
     nav++;
@@ -289,25 +244,21 @@ function initButtons() {
     load();
   });
 
-  document.getElementById('saveButton').addEventListener('click', saveEvent);
-  document.getElementById('cancelButton').addEventListener('click', closeModal);
-  document.getElementById('deleteButton').addEventListener('click', deleteEvent);
   document.getElementById('closeButton').addEventListener('click', closeModal);
 }
 
 initButtons();
 load();
 
+//beregner den aktuelle uge
 function getWeekNumber() {
   let date = new Date();
-  // Torsdag i denne uge
   date.setHours(0, 0, 0, 0); // tal nulstiller timer og sekunder
   date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7)); 
   
   // 1. januar
   let week1 = new Date(date.getFullYear(), 0, 4);
   
-  // Torsdag i uge 1
   week1.setDate(week1.getDate() - ((week1.getDay() + 3) % 7));
   
   // Beregn uge nummer
@@ -315,6 +266,7 @@ function getWeekNumber() {
   return weekNumber;
 }
 
+//berenger dagene i ugen
 function getNext7Days() {
   // Clear previous content
   weekdayElement.innerHTML = '';
@@ -327,7 +279,7 @@ function getNext7Days() {
 
   for (let i = -1; i < 6; i++) {
     let futureDate = new Date(today);
-    futureDate.setDate(today.getDate() + i);
+    futureDate.setDate(today.getDate() + i -1);
 
     const day = futureDate.getDate();
     const month = futureDate.getMonth() + 1; // Months are 0-based
@@ -337,22 +289,12 @@ function getNext7Days() {
     let currentDate = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
     
     weekDiv = document.createElement('div');
-    weekDiv.innerHTML = `${weekdays[i+1]} ${day -1}/${month}`;
+    weekDiv.innerHTML = `${weekdays[i+1]} ${day}/${month}`;
     
     weekdayElement.appendChild(weekDiv);
   }
   
-  }
-
-
-  //if (currentDate <= daysInMonth) { 
-    //return `${currentDate} ${currentMonth}`;
-  //} else {
-    //currentDate = 1;
-    //currentMonth++;
-    //return `${currentDate } ${currentMonth + 1}`;  
-    //}
-
+}
 
 window.addEventListener("DOMContentLoaded", () => {
   const scrollable = document.querySelector(".scrollable-section");
@@ -361,6 +303,7 @@ window.addEventListener("DOMContentLoaded", () => {
   scrollable.scrollTop = scrollable.scrollHeight / 3;
 });
 
+//skjuler hvilke lokaler man kan tilgå efter hvem er logget på
 function hideLokaleOptions(){
   if (localStorage.getItem("firstLoad") === "false") {
   if (localStorage.getItem("lokale1") === "true") {

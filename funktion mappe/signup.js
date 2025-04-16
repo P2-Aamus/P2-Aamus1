@@ -1,3 +1,4 @@
+// Den her side er til at oprette en bruger 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("signupForm");
     const loginInput = document.getElementById("login");
@@ -31,17 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const lokale7 = lokale7Access.checked;
       const lokale8 = lokale8Access.checked;
 
-      console.log("Login:", login);
-      console.log("Kodeord:", kodeord)
-      console.log("Navn:", navn);
-      console.log("Tlfnummer:", tlfnummer);
-      ;
-
+      //Til at tjekke om alt er udfyldt
       if (!login || !kodeord || !navn || !tlfnummer) {
         alert("All fields are required.");
         return;
       }
-
+      //Fetcher alt login, kodeord, om man er admin, navn, telefon nummer og hvilke lokaler man har adgang til
       fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(res => res.json())
       .then(data => {
-        // Create a modal popup for success message
+        // Et modal der popper op at du er registreret
         const modal = document.createElement("div");
         modal.style.position = "fixed";
         modal.style.top = "50%";
@@ -67,17 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.body.appendChild(modal);
 
-        // Add event listener to close the modal and redirect to login
+        // Animationen til at lukke modalet
         document.getElementById("closeModal").addEventListener("click", () => {
           modal.style.transition = "opacity 0.5s ease, transform 0.5s ease";
           modal.style.opacity = "0";
           modal.style.transform = "scale(0.5)";
 
-          // Fade out and scale down the modal before redirecting
+          // Den har funktionen at gå videre til login
           setTimeout(() => {
             modal.remove();
-            window.location.href = "/Login.html"; // Redirect to the login page
-          }, 500); // Match the transition duration
+            window.location.href = "/Login.html"; // Smidder dig over på login siden
+          }, 500);
         });
         console.log(data);
         loginInput.value = "";
@@ -97,39 +93,3 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
-
-/*
-document.addEventListener("DOMContentLoaded", () => {
-    const signupForm = document.getElementById("signupForm");
-    const loginInput = document.getElementById("username");
-    const kodeordInput = document.getElementById("password");
-
-    signupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const login = usernameInput.value;
-      const kodeord = passwordInput.value;
-
-      fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: login,
-          password: kodeord
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log("Success:", data);
-        alert("User registered!");
-        loginInput.value = "";
-        kodeordInput.value = "";
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Something went wrong!");
-      });
-    });
-  });*/

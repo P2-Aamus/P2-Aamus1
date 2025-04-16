@@ -10,12 +10,10 @@
 
     </head>
     <body>
-
+      <!-- Admin knap -->
       <div id="adminDiv"></div>
-      
-      
 
-
+      <!-- Calendar container. Det indeholder alle HTML-elementer til kalendaren -->
     <div class="container">
         <section class="calendar-container">
             <h2>Calendar</h2>
@@ -48,7 +46,6 @@
             <div id="weekdays"></div>
             <div class="scrollable-section">
             <div style="display: flex;">
-                <!-- Tidskolonne -->
                 <div id="timeLabels">   
                   <div class="time-slot">00:00</div>
                   <div class="time-slot">01:00</div>
@@ -79,6 +76,7 @@
             <div id="calendar"></div>
         </div>
 
+        <!---Modalsene popper op når man klikker på en bestilt tid i kalendaren, og viser detaljer om bestillingen-->
         <div id="newEventModal">
             <h2>New Event</h2>
       
@@ -112,8 +110,7 @@
             <p id="eventTimeModal"></p>
             <p id="tlfNrModal"></p>
             <p id="bankPåModal"></p>
-      
-            <button id="deleteButton">Delete</button>
+    
             <button id="closeButton">Close</button>
         </div>
 
@@ -123,7 +120,7 @@
         </div>
     </div>
    
-
+        <!-- Indeholder opslagstavlenn, dine tinder, find bans og sætter dem i en stor contaier -->
         <section class="notice-board-container">
                 <link rel="stylesheet" href="css mappe/tavle.css">
                 <script src="funktion mappe/tavle.js" defer></script>
@@ -136,15 +133,15 @@
                     <h2 class="board-title">Dit Overblik</h2>
                 </div>
                     
-
-                <div class="container">
+                <!-- Fælles container for opslagstavle, dine tider og find bands knapperne -->
+                 <div class="container">
                     <div class="button-container">
                         <button class="button button1" id="noticeBoardButton">Info Tavle</button>
                         <button class="button button2" id="dineTiderButton">Dine Tider</button>
                         <button class="button button3" id="findBandsButton">Find Band</button>  
                     </div>
                 </div>
-            
+                <!-- Containeren til at skrive sine tider -->
                 <div class="tid-container" id="one-content" hidden="true">
                   <form id="dateTimeForm1">
                     
@@ -184,7 +181,7 @@
                     <button type="submit" id="addTime">Tilføj tid</button>
                   </form>
 
-                  
+                  <!-- Form til at bestille en fast tid-->
                   <form class="form-column" id="fixedTimeForm">
                     <h3>Fast tid</h3>
 
@@ -228,7 +225,7 @@
 
                   </form>
 
-
+                  <!--Den her div bliver populated inde i tid.js, og indeholder de bookings, man har lavet-->
                   <div id="bookingsContainer"></div>
                   
                 </div>
@@ -259,16 +256,15 @@
                   
 
                
-
+                <!-- Til funktionalitet i at få opslagstavlen frem (forklaret dybere i tavle.js ) -->
                 <div class="posts-container" id="two-content" hidden="true" >    
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
                     <ul class="menu">
                         <li class="menu__blocks">                   
                             <a id="noticeBoardButton"></a>	
                             <a id="two-content" ></a>
                         </li>
                     </ul>   
-                
+                <!-- Til funktionalitet i at få Find bands frem (forklaret dybere i tavle.js ) -->
                 <div class="posts-container" id="three-content" hidden="true" >    
                     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
                     <ul class="menu">
@@ -278,7 +274,8 @@
                         </li>
                     </ul>   
                 </div>
-                    <!---->
+                
+                <!-- Containeren der indeholder opslgastavlen -->  
                 <div class="posts-container" >
                     
                     <form id="postForm">

@@ -1,3 +1,5 @@
+//tid.js styrer bestillinger, og den viser dine bestillinger
+
 document.addEventListener("DOMContentLoaded", () => {
     const nameForm = document.getElementById("eventName");
     const dateTimeForm = document.getElementById("dateTimeForm1");
@@ -8,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const bankPåInput = document.getElementById("bankPå");
     const bookingsContainer = document.getElementById("bookingsContainer");
     const eventSelectInput = document.getElementById("eventSelect");
-    const formTitle = document.createElement("h3"); // Add a title to indicate edit mode
-    let chosenLokale = "events1"; // Default value for chosenLokale
+    const formTitle = document.createElement("h3");
+    let chosenLokale = "events1";
     formTitle.textContent = "Tilføj tid";
     dateTimeForm.prepend(formTitle);
 
@@ -28,8 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    let editingIndex = null; // Track the index of the booking being edited
+    let editingIndex = null;
 
+    //viser bookings for den valgte lokale
     eventSelectInput.addEventListener("change", (event) => {
         chosenLokale = event.target.value;
         renderBookings();
@@ -47,8 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const time = eventTimeInput.value;
             const bankPå = bankPåInput.checked;
 
-            console.log(date, time);
-
             try {
                 // Fetch existing bookings
                 let responseRaw = await fetch(`http://localhost:3000/api/get_${chosenLokale}`);
@@ -60,24 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let response = await responseRaw.json();
 
-                // Debugging: Log the fetched bookings
-                //console.log("Fetched bookings:", response);
-
-                // Check for conflicting bookings
+                //Tjekker om der er andre bookinger på samme tid
                 for (let booking of response) {
-                    //console.log("Checking booking:", booking);
 
-                    // Ensure consistent date format for comparison
-                    const inputDate = new Date(date).toISOString().split('T')[0]; // Format input date as YYYY-MM-DD
-                    let bookingDateObj = new Date(booking.event_date); // Convert booking date to Date object
+                    const inputDate = new Date(date).toISOString().split('T')[0]; 
+                    let bookingDateObj = new Date(booking.event_date);
 
                     // Shift bookingDate by one day
                     bookingDateObj.setDate(bookingDateObj.getDate() + 1);
 
-                    const bookingDate = bookingDateObj.toISOString().split('T')[0]; // Format shifted booking date as YYYY-MM-DD
-
-                   
-                    //console.log("Input date:", inputDate, "Shifted booking date:", bookingDate, "Booking Time:", booking.start_time, "Input Time:", time+":00");
+                    const bookingDate = bookingDateObj.toISOString().split('T')[0];
 
                     const toMinutes = t => {
                         const [h, m] = t.split(':').map(Number);
@@ -94,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 
-                // If no conflicts, proceed with saving the booking
+                //hvis der ikke er konflikter, så kan man gemme den nye booking
                 await saveBookings();
                 load();
 
@@ -115,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-    // Function to save bookings to localStorage
+    //Funktionen gemmer en ny booking i databasen
     async function saveBookings() {        
 
         await fetch(`http://localhost:3000/api/${chosenLokale}`, {
@@ -139,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
     }
 
-    // Function to render bookings
+    // Funktion til at render bookings
     async function renderBookings() {
         bookingsContainer.innerHTML = "";
 
@@ -157,55 +150,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Kl:</strong> ${booking.start_time} til ${booking.end_time}</p>
                 <p><strong>Tlf Nr:</strong> ${booking.tlf_nr}</p>
                 <p><strong>Bank på:</strong> ${booking.bank_pa ? "Ja" : "Nej"}</p>
-                <button class="rediger-booking" data-index="${booking}">Redigér</button>
                 <button class="slet-booking" data-post-id="${booking.id}">Slet</button>
             `;
             bookingsContainer.appendChild(bookingDiv);
         }}
     }
 
-    // Function to add or update a booking
-    function addOrUpdateBooking(date, time, bankPå) {
-        if (editingIndex !== null) {
-            // Update the existing booking
-            bookings[editingIndex] = { date, time, bankPå };
-            editingIndex = null; // Reset editing index
-            formTitle.textContent = "Tilføj tid"; // Reset form title
-            dateTimeForm.classList.remove("edit-mode"); // Remove edit mode styling
-        } else {
-            // Add a new booking
-            bookings.push({ date, time, bankPå });
-        }
-        saveBookings();
-        renderBookings();
-    }
 
-    // Function to edit a booking
-    function editBooking(index) {
-        const booking = bookings[index];
-        eventDateInput.value = booking.date;
-        eventTimeInput.value = booking.time;
-        bankPåInput.checked = booking.bankPå;
-        editingIndex = index; // Set the index of the booking being edited
-        formTitle.textContent = "Rediger tid"; // Update form title
-        dateTimeForm.classList.add("edit-mode"); // Add edit mode styling
-    }
-
-
-    //DELETE??
-    // Event delegation for edit and delete buttons
+    //Sletter bookings
     bookingsContainer?.addEventListener("click", (event) => {
         if (event.target.classList.contains("slet-booking")) {
             const index = event.target.getAttribute("data-post-id");
             deleteBooking(index);
-        } else if (event.target.classList.contains("rediger-booking")) {
-            const index = event.target.getAttribute("data-index");
-            editBooking(index);
-        }
+        } 
     });
 
     
-    //Fixed Times
+    //Faste tider
 
     fixedTimeForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -215,13 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const bankPå = bankPåFixedInput.checked;
         const day = fixedTimeDayDropdown.value;
         
-
-        // Save the fixed time booking
         saveFixedTimeBooking();
         fixedTimeForm.reset();
     });
 
-    // Function to save fixed time booking
+    //Gemmer de faste tider
     async function saveFixedTimeBooking() {
         await fetch(`http://localhost:3000/api/faste_tider`, {
             method: 'POST',
@@ -244,10 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // Load bookings on page load
     renderBookings();
 
-
+    //sletter booking med deres ID
     async function deleteBooking(bookingId) {
         try {
             const response = await fetch(`http://localhost:3000/api/${chosenLokale}/${bookingId}`, {
@@ -255,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     
             if (response.ok) {
-                console.log(`Band post with ID ${bookingId} deleted successfully`);
+                console.log(`Booking with ID ${bookingId} deleted successfully`);
                 renderBookings();
                 load();
             } else {

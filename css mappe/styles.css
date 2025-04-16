@@ -1,6 +1,5 @@
-/* General page styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Tahoma, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -9,7 +8,7 @@ body {
     padding-top: 20px;
 }
 
-.container { /* Størrelse på container */
+.container { 
     display: flex;
     justify-content: space-between;
     max-width: 1400px;
@@ -17,9 +16,8 @@ body {
     
 }
 
-/* Calendar Container */
 .calendar-container {
-    width: 90%; /* Take up almost half of the page */
+    width: 90%; 
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -44,7 +42,6 @@ body {
     text-align: center;
 }
 
-/* Notice Board Container */
 .notice-board-container {
     width: 25%;
     background-color: #fff;
@@ -66,7 +63,6 @@ body {
 
 
 
-/* Responsive design: stack components on smaller screens */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

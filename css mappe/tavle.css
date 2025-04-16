@@ -1,4 +1,3 @@
-/* Notice Board Container */
 .notice-board-container {
     width: 30%;
     background-color: #fff;
@@ -124,7 +123,7 @@
 /*læg op*/ {
     margin: 0 auto;
     padding: 0.8rem 1rem;
-    background-color: #ffffff; /* ny farve */
+    background-color: #ffffff;
     color: rgb(0, 0, 0);
     transition-duration: 300ms;
     border-radius: 5px;
@@ -234,7 +233,6 @@
   }
 
 
-/* Highlight the form when editing */
 #dateTimeForm.edit-mode {
   border: 2px solid #b9dbff;
   padding: 10px;
@@ -242,7 +240,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Add a smooth transition effect */
 #dateTimeForm {
   transition: all 0.3s ease-in-out;
 }

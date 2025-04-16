@@ -3,7 +3,7 @@ body {
     margin-top: 50px;
     justify-content: center;
     background-color: #FFFCFF;
-    font-family: 'comic Sans MS';
+    font-family: 'Arial';
   }
   button {
     width: 75px;
@@ -73,9 +73,9 @@ body {
     box-shadow: 0px 0px 3px #CBD4C2;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center;     /* Center horizontally */
-    padding: 5p; /* ← Remove padding! */
+    justify-content: center; 
+    align-items: center;    
+    padding: 5p;
     position: static;
   }
   
@@ -152,11 +152,11 @@ body {
   }
 
   .scrollable-section {
-    height: 650px; /* Set a fixed height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ccc; /* Optional: Add a border */
-    padding: 10px; /* Optional: Add some padding */
-    background-color: #f9f9f9; /* Optional: Background color */
+    height: 650px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9; 
     position: static;
   }
 
@@ -167,8 +167,8 @@ body {
     margin-right: 10px;
     
     font-size: 20px;
-    color: #f200ff;
-    margin-top: 2.5px; /* Justér så det passer med overskriften */
+    color: #000000;
+    margin-top: 2.5px; 
     align-items: flex-end;
     height: 100%;
   }
@@ -176,7 +176,7 @@ body {
 
 
   .time-slot {
-    height: 60px; /* Samme højde som .day */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: flex-end;

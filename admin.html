@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personinformation</title>
+     <!-- Var doven og lavede css'en herinde -->
     <style>
         body {
             font-family: sans-serif;
@@ -34,6 +35,7 @@
 </head>
 <body>
     <h1>Medlemsliste</h1>
+    <button id="backBtnAdmin">Tilbage</button>
     <table id="personTable">
         <thead></thead>
             <tr>
@@ -47,7 +49,18 @@
         </tbody>
     </table>
 
+    
+    <!-- Var doven igen og lavede scripten herinde -->
     <script>
+
+        const backBtnAdmin = document.getElementById('backBtnAdmin');
+
+        backBtnAdmin.addEventListener('click', () => {
+            window.location.href = 'index.html'; // Skift til den ønskede side
+        });
+        
+
+        //Funktionen til at hente informationen fra databasen
         async function hentPersonInformation() {
             try {
                 const response = await fetch('http://localhost:3000/api/getPersonInfo');
@@ -62,10 +75,12 @@
             }
         }
 
+        //Her viser vi informationen
         function visPersonInformation(personer) {
             const tableBody = document.getElementById('personTableBody');
-            tableBody.innerHTML = ''; // Ryd eksisterende rækker
+            tableBody.innerHTML = ''; 
 
+            //Laver nogle celler til skemaet, med de forskellige ting
             personer.forEach(person => {
                 const row = tableBody.insertRow();
                 const navnCell = row.insertCell();
@@ -73,10 +88,12 @@
                 const userIdCell = row.insertCell();
                 const actionCell = row.insertCell();
 
+                //Navn, telefon nummer og person id
                 navnCell.textContent = person.navn;
                 tlfnummerCell.textContent = person.tlfnummer;
                 userIdCell.textContent = person.id; 
 
+                //Slet knap suiii
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Slet';
                 deleteButton.onclick = () => {
@@ -90,11 +107,13 @@
                 actionCell.appendChild(deleteButton);
             });
 
+            //Hvis vi ikke har noget information :(((
             if (personer.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="4">Ingen personinformation fundet.</td></tr>`;
             }
         }
 
+        //Slet user fra databasen, ved hjælp af user ID'et
         async function deletePost(userId) {
     try {
         const response = await fetch(`http://localhost:3000/api/deleteUser/${userId}`, {
@@ -102,20 +121,22 @@
         });
 
         if (response.ok) {
-            console.log(`Band post with ID ${userId} deleted successfully`);
+            console.log(`User with ID ${userId} deleted successfully`);
             hentPersonInformation();
         } else {
             const errorData = await response.json();
-            console.error('Error deleting post:', errorData);
-            alert('Fejl ved sletning af opslag.');
+            console.error('Error deleting user:', errorData);
+            alert('Fejl ved sletning af user.');
         }
     } catch (error) {
-        console.error('Network error while deleting post:', error);
+        console.error('Network error while deleting user:', error);
         alert('Netværksfejl ved sletning af opslag.');
     }
 }
 
         hentPersonInformation();
     </script>
+
+    
 </body>
 </html>

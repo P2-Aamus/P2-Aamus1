@@ -11,12 +11,13 @@
 
     </head>
     <body>
-        
             <div class="login-container">
                 <div class="logo-area">
                     <img src="amus.png" alt="Aalborg Musikforening Logo">
                    
                 </div>
+
+                <!--login form-->
                 <div class="form-container">
                     <div class="login-form">
                         <form id="loginForm">
@@ -31,6 +32,7 @@
                         </form>
                     </div>
         
+                    <!--Sign up form-->
                     <div class="signup-area" hidden="true">
                         <h2 class="form-heading">Opret konto</h2>
                         <form id="signupForm">
@@ -94,6 +96,7 @@
   
             </div>
             <script>
+                //Tobias var doven og skrev koden herinde
                 const dropdown = document.getElementById('lokaleDropdown');
                 const label = dropdown.querySelector('.dropdown-label');
               
@@ -101,42 +104,12 @@
                   dropdown.classList.toggle('open');
                 });
               
-                // Optional: close dropdown when clicking outside
                 window.addEventListener('click', (e) => {
                   if (!dropdown.contains(e.target)) {
                     dropdown.classList.remove('open');
                   }
                 });
-              </script>
-           
-
-        
- <!--
-        <h2>Sign Up</h2>
-    <form id="signupForm">
-    <label>login:</label><br />
-    <input type="text" id="login" required /><br /><br />
-
-    <label>kodeord:</label><br />
-    <input type="password" id="kodeord" required /><br /><br />
-    
-
-    <button type="submit">Sign Up</button>
-</form>
-
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label>login:</label><br />
-            <input type="text" id="loginid" required /><br /><br />
-
-            <label>kodeord:</label><br />
-            <input type="password" id="kodeordid" required /><br /><br />
-
-            <button type="submit">Login</button>
-        </form>
-
-    -->
-        
+              </script>      
           
     </body>
 

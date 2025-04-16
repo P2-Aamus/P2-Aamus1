@@ -1,3 +1,6 @@
+//Bands.js styrer band opslag og sletning af opslag. 
+
+//initialize alle HTML-elementer
 document.addEventListener("DOMContentLoaded", () => {
     const bandMessageBoard = document.getElementById("bandMessageBoard");
     const bandForm = document.getElementById("bandForm");
@@ -7,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const tlfNr = document.getElementById("tlfNr");
     const mail = document.getElementById("mail");
   
-    let bandPosts = JSON.parse(localStorage.getItem("bandPosts")) || [];
 
     bandForm?.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -17,11 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       omJer.value = "";
       tlfNr.value = "";
       mail.value = "";
-      //renderBandPosts();
       
   });
 
-  
+   //Delete post funktion, den fjerner hvert post ved hjælp af deres unikke ID.
   async function deletePost(postId) {
     try {
         const response = await fetch(`http://localhost:3000/api/find_band/${postId}`, {
@@ -42,9 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 }
   
-    // Function to save band posts to local storage
+     //Funktion der gemmer bband posts i databasen
     async function saveBandPosts() {
-      localStorage.setItem("bandPosts", JSON.stringify(bandPosts));
 
       await fetch('http://localhost:3000/api/find_band', {
         method: 'POST',
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
   
-    // Function to render band posts on the message board
+    //Funktionen finder alle opslagene fra databasen og viser dem på siden
     async function renderBandPosts() {
       bandMessageBoard.innerHTML = "";
 
@@ -105,11 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
       bandMessageBoard.innerHTML = '<p>Kunne ikke hente opslag.</p>'; // Use bandMessageBoard
   }
 }
-    // Load existing band posts when page loads
+
     renderBandPosts();
   
-    // Make deleteBandPost function globally accessible
-    //window.deleteBandPost = deleteBandPost; }
 });
 
   
