@@ -1,9 +1,4 @@
-//log Out button
-const logoutButton = document.getElementById("LogoutBtn");
 
-logoutButton?.addEventListener("click", () => {
-  window.location.href = '/login.html';
-});
 
 
 const mysql = require('mysql2');
