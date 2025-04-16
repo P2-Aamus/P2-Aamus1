@@ -39,8 +39,7 @@
             <tr>
                 <th>Navn</th>
                 <th>Telefonnummer</th>
-                <th>Lokale</th>
-                <th>User ID</th>
+                <th>UserID</th>
                 <th>Slet bruger</th>
             </tr>
         </thead>
@@ -71,13 +70,11 @@
                 const row = tableBody.insertRow();
                 const navnCell = row.insertCell();
                 const tlfnummerCell = row.insertCell();
-                const lokale1Cell = row.insertCell();
                 const userIdCell = row.insertCell();
                 const actionCell = row.insertCell();
 
                 navnCell.textContent = person.navn;
                 tlfnummerCell.textContent = person.tlfnummer;
-                lokale1Cell.textContent = person.lokale1;
                 userIdCell.textContent = person.id; 
 
                 const deleteButton = document.createElement('button');
@@ -118,7 +115,6 @@
     }
 }
 
-        // Kald funktionen når siden indlæses
         hentPersonInformation();
     </script>
 </body>

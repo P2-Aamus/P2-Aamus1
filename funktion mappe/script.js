@@ -454,7 +454,7 @@ app.get('/api/getPersonInfo', (req, res) => {
   console.log("Henter information om personer...");
   
 
-  const sql = 'SELECT navn, tlfnummer, lokale1, id FROM login';
+  const sql = 'SELECT navn, tlfnummer, id FROM login';
 
   connection.query(sql, (err, results) => {
     if (err) {
