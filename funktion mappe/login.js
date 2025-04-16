@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("firstLoad", "false");
       
         alert("Login successful!");
-        window.location.href = '/index.html'; 
+        window.location.href = '/index.html';
 
         for (let result of users) {
           if (result.login === loginid){

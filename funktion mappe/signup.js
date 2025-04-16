@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "/Login.html"; // Smidder dig over på login siden
           }, 500);
         });
-        console.log(data);
         loginInput.value = "";
         kodeordInput.value = "";
         lokale1Access.checked;

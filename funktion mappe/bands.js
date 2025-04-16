@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let responseRaw = await fetch('http://localhost:3000/api/get_find_band');
       let response = await responseRaw.json();
 
-
+      //basiccly html, men bare i javascript, så det er bedre postet.
      for (let post of response) {
         const postDiv = document.createElement("div");
         postDiv.classList.add("notice");
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Mail:</strong> ${post.mail}</p>
             <small>${new Date(post.date).toLocaleDateString()}</small>
             <small>${post.time}</small>
-                <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
+            <button type="button" class="delete-btn" data-post-id="${post.id}">Slet</button>`;
         bandMessageBoard.prepend(postDiv);
       }
 
