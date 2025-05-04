@@ -156,8 +156,6 @@ async function load() {
     for (let events of response) {
       let date = new Date(events.event_date);
       let dayOfWeek = date.getDay();
-      let eventBlock = (dayOfWeek -2 ) + (7 * parseInt(events.start_time.split(':')[0]) + 1);
-      let eventEndBlock = (dayOfWeek - 2) + (7 * parseInt(events.end_time.split(':')[0]) - 6);
 
       //Beregner hvilken uge, en booking er i
       const tempDate = new Date(events.event_date);
